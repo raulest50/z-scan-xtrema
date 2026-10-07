@@ -338,9 +338,11 @@ package name {
 <ref refid="a555f3fd-c1e9-11f1-b73a-bc09b9551b3f"/>
 <ref refid="18f9b187-c1c0-11f1-9efa-bc09b9551b3f"/>
 <ref refid="2372a857-c1c0-11f1-8634-bc09b9551b3f"/>
+<ref refid="99cf5554-c294-11f1-b7b6-bc09b9551b3f"/>
 <ref refid="504e9d2a-c1c1-11f1-ad77-bc09b9551b3f"/>
 <ref refid="5894de1c-c1c1-11f1-a130-bc09b9551b3f"/>
 <ref refid="5fe84869-c1c1-11f1-872a-bc09b9551b3f"/>
+<ref refid="aef3aacb-c294-11f1-8fe7-bc09b9551b3f"/>
 </reflist>
 </ownedPresentation>
 </UML:DeploymentDiagram>
@@ -367,7 +369,7 @@ package name {
 <val>(1.0, 0.0, 0.0, 1.0, 204.81508577621995, 263.53534864852196)</val>
 </matrix>
 <points>
-<val>[(12.725964876627899, -47.13658794435753), (15.45192975325574, 124.46465135147787)]</val>
+<val>[(15.451929753255683, -47.13658794435776), (15.451929753255683, 124.46465135147787)]</val>
 </points>
 <head-connection>
 <ref refid="eab952b9-c1bf-11f1-84c9-bc09b9551b3f"/>
@@ -399,7 +401,7 @@ package name {
 <val>(1.0, 0.0, 0.0, 1.0, 217.04105065284776, 726.4845902211628)</val>
 </matrix>
 <points>
-<val>[(0.5000000000000568, -99.98459022116276), (0.5000000000000284, 113.25734267028099)]</val>
+<val>[(0.5, -99.98459022116276), (0.5000000000000284, 113.25734267028099)]</val>
 </points>
 <head-connection>
 <ref refid="e897e1a2-c1bf-11f1-9653-bc09b9551b3f"/>
@@ -442,7 +444,7 @@ package name {
 </UML:AssociationItem>
 <UML:NodeItem id="e897e1a2-c1bf-11f1-9653-bc09b9551b3f">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 144.0, 388.0)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 143.99999999999994, 387.99999999999983)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -1123,6 +1125,7 @@ Tech Stack:
 <ref refid="f767011b-c1df-11f1-acc7-bc09b9551b3f"/>
 <ref refid="7b53069e-c1ea-11f1-8b29-bc09b9551b3f"/>
 <ref refid="8a2983f5-c1ea-11f1-8449-bc09b9551b3f"/>
+<ref refid="00477aa8-c293-11f1-98ce-bc09b9551b3f"/>
 <ref refid="f4e599b4-c1ec-11f1-a28c-bc09b9551b3f"/>
 <ref refid="72ee9eff-c1ed-11f1-b941-bc09b9551b3f"/>
 <ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
@@ -1133,6 +1136,7 @@ Tech Stack:
 <ref refid="3a6d0949-c26a-11f1-8d6e-bc09b9551b3f"/>
 <ref refid="6c958e78-c26a-11f1-ba00-bc09b9551b3f"/>
 <ref refid="cd75e4ad-c272-11f1-895e-bc09b9551b3f"/>
+<ref refid="3ea8acb3-c293-11f1-bac6-bc09b9551b3f"/>
 <ref refid="89f84a7f-c26a-11f1-8846-bc09b9551b3f"/>
 <ref refid="e3d31cd0-c272-11f1-a268-bc09b9551b3f"/>
 </reflist>
@@ -1215,6 +1219,7 @@ Tech Stack:
 <ref refid="3a6c5f66-c26a-11f1-b16f-bc09b9551b3f"/>
 <ref refid="6c9544f4-c26a-11f1-b0cd-bc09b9551b3f"/>
 <ref refid="cd755b89-c272-11f1-9285-bc09b9551b3f"/>
+<ref refid="3ea86b64-c293-11f1-8322-bc09b9551b3f"/>
 </reflist>
 </ownedType>
 <owningPackage>
@@ -1229,6 +1234,7 @@ Tech Stack:
 <ref refid="3a6c5f66-c26a-11f1-b16f-bc09b9551b3f"/>
 <ref refid="6c9544f4-c26a-11f1-b0cd-bc09b9551b3f"/>
 <ref refid="cd755b89-c272-11f1-9285-bc09b9551b3f"/>
+<ref refid="3ea86b64-c293-11f1-8322-bc09b9551b3f"/>
 </reflist>
 </packagedElement>
 <presentation>
@@ -1259,6 +1265,7 @@ Tech Stack:
 <ref refid="3a6d0949-c26a-11f1-8d6e-bc09b9551b3f"/>
 <ref refid="6c958e78-c26a-11f1-ba00-bc09b9551b3f"/>
 <ref refid="cd75e4ad-c272-11f1-895e-bc09b9551b3f"/>
+<ref refid="3ea8acb3-c293-11f1-bac6-bc09b9551b3f"/>
 </reflist>
 </children>
 <diagram>
@@ -1359,12 +1366,20 @@ zscan.home.arpa</val>
 <ref refid="da24f31b-c1bf-11f1-8fae-bc09b9551b3f"/>
 </reflist>
 </ownedDiagram>
+<ownedType>
+<reflist>
+<ref refid="99cf1efe-c294-11f1-9a8d-bc09b9551b3f"/>
+<ref refid="afd90e3f-c294-11f1-a23e-bc09b9551b3f"/>
+</reflist>
+</ownedType>
 <owningPackage>
 <ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
 </owningPackage>
 <packagedElement>
 <reflist>
 <ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
+<ref refid="99cf1efe-c294-11f1-9a8d-bc09b9551b3f"/>
+<ref refid="afd90e3f-c294-11f1-a23e-bc09b9551b3f"/>
 </reflist>
 </packagedElement>
 </UML:Package>
@@ -1516,6 +1531,7 @@ zscan.home.arpa</val>
 <ownedType>
 <reflist>
 <ref refid="8a293c06-c1ea-11f1-b4be-bc09b9551b3f"/>
+<ref refid="00472aa6-c293-11f1-ab2f-bc09b9551b3f"/>
 </reflist>
 </ownedType>
 <owningPackage>
@@ -1524,6 +1540,7 @@ zscan.home.arpa</val>
 <packagedElement>
 <reflist>
 <ref refid="8a293c06-c1ea-11f1-b4be-bc09b9551b3f"/>
+<ref refid="00472aa6-c293-11f1-ab2f-bc09b9551b3f"/>
 </reflist>
 </packagedElement>
 <presentation>
@@ -1548,6 +1565,7 @@ zscan.home.arpa</val>
 <children>
 <reflist>
 <ref refid="8a2983f5-c1ea-11f1-8449-bc09b9551b3f"/>
+<ref refid="00477aa8-c293-11f1-98ce-bc09b9551b3f"/>
 </reflist>
 </children>
 <diagram>
@@ -1617,7 +1635,7 @@ zscan.home.arpa</val>
 </UML:Artifact>
 <UML:ArtifactItem id="f4e599b4-c1ec-11f1-a28c-bc09b9551b3f">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 97.0755919080807, 108.95953848747205)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 207.32965688005737, 218.1009688554783)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -1642,6 +1660,9 @@ zscan.home.arpa</val>
 <name>
 <val>session.py</val>
 </name>
+<note>
+<val>se encarga de la logica para gestion de la sesion del usuario conectado y garantizar que solo una persona a la vez puede controlar el dispositivo</val>
+</note>
 <owningPackage>
 <ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
 </owningPackage>
@@ -1656,7 +1677,7 @@ zscan.home.arpa</val>
 </UML:Artifact>
 <UML:ArtifactItem id="72ee9eff-c1ed-11f1-b941-bc09b9551b3f">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 97.07559190808063, 254.10096885547833)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 207.3296568800573, 354.62114458628594)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -2076,6 +2097,219 @@ zscan.home.arpa</val>
 </owningAssociation>
 <type>
 <ref refid="6f753892-c1ea-11f1-8e25-bc09b9551b3f"/>
+</type>
+</UML:Property>
+<UML:Artifact id="00472aa6-c293-11f1-ab2f-bc09b9551b3f">
+<name>
+<val>web_cam.py</val>
+</name>
+<note>
+<val>encapsula toda la logica necesaria para cominicarse con la camara</val>
+</note>
+<owningPackage>
+<ref refid="7b52d01c-c1ea-11f1-b6ed-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="7b52d01c-c1ea-11f1-b6ed-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="00477aa8-c293-11f1-98ce-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="00477aa8-c293-11f1-98ce-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 86.87475225317303, 245.66160609881393)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>155.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="7b53069e-c1ea-11f1-8b29-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="00472aa6-c293-11f1-ab2f-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:Artifact id="3ea86b64-c293-11f1-8322-bc09b9551b3f">
+<name>
+<val>streaming_image_.tsx</val>
+</name>
+<owningPackage>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="3ea8acb3-c293-11f1-bac6-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="3ea8acb3-c293-11f1-bac6-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 879.695728668247, 629.2262975741025)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>203.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="3ea86b64-c293-11f1-8322-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:Device id="99cf1efe-c294-11f1-9a8d-bc09b9551b3f">
+<name>
+<val>Logitech Brio 100 - WebCam</val>
+</name>
+<note>
+<val>Fabricante: Logitech
+Modelo: Brio 100 — webcam USB (no cámara IP).
+Identificador USB (VID:PID): 046d:094c.
+Conexión: USB a la Kria KV260; captura mediante Video4Linux2 (V4L2).
+Dispositivo de captura verificado: /dev/video0. La numeración puede cambiar al reconectar o reiniciar.
+Captura comprobada: 1920 × 1080 mediante MJPEG; el dispositivo anuncia hasta 30 fps en este formato. Streaming continuo aún no validado.
+Herramientas disponibles en la Kria: FFmpeg, v4l2-ctl y OpenCV 4.5.4.
+
+Integración futura:
+El backend de la Kria capturará el vídeo por V4L2 y lo servirá al frontend; el navegador no accederá directamente al USB.
+Usar un único capturador compartido y una ruta persistente /dev/v4l/by-id/ si está disponible, evitando depender de /dev/video0.
+Definir y validar resolución, fps, latencia y transporte antes de implementar el streaming; no requiere PYNQ para la captura USB.</val>
+</note>
+<owningPackage>
+<ref refid="c335fb28-c1e9-11f1-851e-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="c335fb28-c1e9-11f1-851e-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="99cf5554-c294-11f1-b7b6-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Device>
+<UML:NodeItem id="99cf5554-c294-11f1-b7b6-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 2118.6459426032106, -389.9505607183177)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>462.39715866544316</val>
+</width>
+<height>
+<val>343.3500371444685</val>
+</height>
+<diagram>
+<ref refid="da24f31b-c1bf-11f1-8fae-bc09b9551b3f"/>
+</diagram>
+<subject>
+<ref refid="99cf1efe-c294-11f1-9a8d-bc09b9551b3f"/>
+</subject>
+</UML:NodeItem>
+<UML:AssociationItem id="aef3aacb-c294-11f1-8fe7-bc09b9551b3f">
+<diagram>
+<ref refid="da24f31b-c1bf-11f1-8fae-bc09b9551b3f"/>
+</diagram>
+<head_subject>
+<ref refid="afd9411d-c294-11f1-ab84-bc09b9551b3f"/>
+</head_subject>
+<horizontal>
+<val>False</val>
+</horizontal>
+<orthogonal>
+<val>False</val>
+</orthogonal>
+<subject>
+<ref refid="afd90e3f-c294-11f1-a23e-bc09b9551b3f"/>
+</subject>
+<tail_subject>
+<ref refid="afd94620-c294-11f1-bdb5-bc09b9551b3f"/>
+</tail_subject>
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 1705.2135482229833, -238.9758499961324)</val>
+</matrix>
+<points>
+<val>[(0.7880772195790087, 0.0), (413.4323943802274, 0.0)]</val>
+</points>
+<head-connection>
+<ref refid="eab952b9-c1bf-11f1-84c9-bc09b9551b3f"/>
+</head-connection>
+<tail-connection>
+<ref refid="99cf5554-c294-11f1-b7b6-bc09b9551b3f"/>
+</tail-connection>
+</UML:AssociationItem>
+<UML:Association id="afd90e3f-c294-11f1-a23e-bc09b9551b3f">
+<memberEnd>
+<reflist>
+<ref refid="afd9411d-c294-11f1-ab84-bc09b9551b3f"/>
+<ref refid="afd94620-c294-11f1-bdb5-bc09b9551b3f"/>
+</reflist>
+</memberEnd>
+<name>
+<val>USB</val>
+</name>
+<ownedEnd>
+<reflist>
+<ref refid="afd9411d-c294-11f1-ab84-bc09b9551b3f"/>
+<ref refid="afd94620-c294-11f1-bdb5-bc09b9551b3f"/>
+</reflist>
+</ownedEnd>
+<owningPackage>
+<ref refid="c335fb28-c1e9-11f1-851e-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="c335fb28-c1e9-11f1-851e-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="aef3aacb-c294-11f1-8fe7-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Association>
+<UML:Property id="afd9411d-c294-11f1-ab84-bc09b9551b3f">
+<association>
+<ref refid="afd90e3f-c294-11f1-a23e-bc09b9551b3f"/>
+</association>
+<owningAssociation>
+<ref refid="afd90e3f-c294-11f1-a23e-bc09b9551b3f"/>
+</owningAssociation>
+<type>
+<ref refid="eab91aae-c1bf-11f1-b135-bc09b9551b3f"/>
+</type>
+</UML:Property>
+<UML:Property id="afd94620-c294-11f1-bdb5-bc09b9551b3f">
+<association>
+<ref refid="afd90e3f-c294-11f1-a23e-bc09b9551b3f"/>
+</association>
+<owningAssociation>
+<ref refid="afd90e3f-c294-11f1-a23e-bc09b9551b3f"/>
+</owningAssociation>
+<type>
+<ref refid="99cf1efe-c294-11f1-9a8d-bc09b9551b3f"/>
 </type>
 </UML:Property>
 </model>

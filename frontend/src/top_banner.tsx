@@ -435,8 +435,12 @@ void main() {
   // Preserve the artwork silhouette: empty SVG pixels must never become a matte.
   float sourceAlpha = texture(tImage, photoUv).a * within(photoUv);
   float reveal = smoothstep(0.02, 0.8, shown);
-  float dots = step(order, 0.68);
-  vec3 pulseColor = mix(uPaper, raw, reveal);
+  float luminance = dot(raw, vec3(0.2126, 0.7152, 0.0722));
+  float dots = step(order, mix(0.88, 0.38, luminance));
+  // Keep dark technical annotations solid; reveal the optical materials on hover.
+  float annotation = 1.0 - smoothstep(0.06, 0.16, luminance);
+  reveal = max(reveal, annotation);
+  vec3 pulseColor = mix(mix(uPaper, raw, 0.24), raw, reveal);
   fragColor = vec4(pulseColor, sourceAlpha * mix(dots, 1.0, reveal) * appear);
 }
 `;
@@ -887,25 +891,9 @@ const DitherVeil = ({
 
 const labLogo = new URL('../../assets/logo_svg.svg', import.meta.url).href;
 
-// Decorative ultrashort pulse; neither measured data nor a calibrated time axis.
-const pulsePath = (envelope: boolean, sign = 1) => Array.from({ length: 801 }, (_, i) => {
-  const x = 20 + i;
-  const amplitude = 76 * Math.exp(-0.5 * Math.pow((x - 420) / 115, 2));
-  const y = 100 - sign * amplitude * (envelope ? 1 : Math.cos((x - 420) * Math.PI / 22));
-  return `${i ? 'L' : 'M'}${x},${y.toFixed(3)}`;
-}).join(' ');
-const artwork = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="200" viewBox="0 0 840 200">
-<defs><linearGradient id="spectrum"><stop stop-color="#079b98"/><stop offset=".4" stop-color="#168ba2"/><stop offset=".65" stop-color="#465cbd"/><stop offset="1" stop-color="#d96870"/></linearGradient></defs>
-<path d="${pulsePath(true)} L820,100 L20,100 Z" fill="url(#spectrum)" opacity=".1"/>
-<path d="${pulsePath(true, -1)} L820,100 L20,100 Z" fill="url(#spectrum)" opacity=".1"/>
-<g fill="none" stroke="url(#spectrum)">
-<path d="${pulsePath(true)}" stroke-width="1.2" stroke-dasharray="3 6" opacity=".55"/>
-<path d="${pulsePath(true, -1)}" stroke-width="1.2" stroke-dasharray="3 6" opacity=".55"/>
-<path d="${pulsePath(false)}" stroke-width="9" opacity=".12"/>
-<path d="${pulsePath(false)}" stroke-width="3" stroke-linecap="round"/>
-</g>
-</svg>`);
+// Approved conceptual artwork, not a calibrated drawing of the laboratory.
+// In particular, its optical z origin is unrelated to the stage's encoder zero.
+const artwork = new URL('../../assets/zscan_optical_banner.png', import.meta.url).href;
 
 export default function TopBanner({ active, statusLabel }: { active: boolean; statusLabel: string }) {
   const [animate, setAnimate] = useState(false);
@@ -921,16 +909,26 @@ export default function TopBanner({ active, statusLabel }: { active: boolean; st
     document.addEventListener('visibilitychange', update);
     return () => { media.removeEventListener('change', update); document.removeEventListener('visibilitychange', update); };
   }, []);
-  return <Flex as="header" justify="space-between" align="center" gap={4} wrap="wrap" mb={12}>
+  return <Flex as="header" justify="space-between" align="center" gap={4} wrap="wrap" mb={12}
+    position="relative" isolation="isolate"
+    _before={{
+      content: '""', position: 'absolute', inset: { base: '-8px', md: '-16px' },
+      zIndex: -1, pointerEvents: 'none', borderRadius: '20px',
+      border: '1px solid rgba(120, 162, 176, 0.22)',
+      background: 'linear-gradient(115deg, rgba(255,255,255,0.88) 0%, rgba(246,251,252,0.64) 55%, rgba(223,241,242,0.52) 100%)',
+      boxShadow: '0 12px 32px -18px rgba(25, 69, 85, 0.28), 0 3px 8px -5px rgba(25, 69, 85, 0.14), inset 0 1px 0 rgba(255,255,255,0.95)',
+    }}>
     <Flex align="center" gap={{ base: 3, md: 5 }} wrap="wrap" flexShrink={0}>
       <Box bg="white" borderRadius="lg" p={2} flexShrink={0}>
         <img src={labLogo} alt="Grupo de Fotónica y Opto-electrónica" width={168} height={148} style={{ width: 'clamp(100px, 15vw, 168px)', height: 'auto' }} />
       </Box>
       <Box><Text fontSize="xs" fontWeight="bold" letterSpacing="0.2em" color="teal.700">INSTRUMENTACIÓN · FOTÓNICA</Text><Heading size={{ base: 'xl', md: '3xl' }} mt={2}>Z-Scan Xtrema</Heading></Box>
     </Flex>
-    <Box aria-hidden="true" display={{ base: 'none', xl: 'block' }} flex="1" minW={0} alignSelf="stretch" position="relative" overflow="hidden">
-      {!animate && <img src={artwork} alt="" style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'contain' }} />}
-      {animate && <DitherVeil src={artwork} fit="contain" pattern="bayer" inkColor="#eef3f7" paperColor="#237c91" rim={0} pixelSize={1} contrast={1.05} wander={false} clickBurst={false} revealRadius={110} softness={0.8} linger={1.4} style={{ position: 'absolute', inset: 0, overflow: 'hidden' }} />}
+    <Box aria-hidden="true" title="Esquema conceptual de Z-scan; no representa una medición ni el montaje calibrado." display={{ base: 'none', xl: 'block' }} flex="1" minW={0} alignSelf="stretch" position="relative" overflow="hidden">
+      {/* Artwork occupies the middle half of its transparent canvas. Expand that
+          canvas, not the optics, to use a shallow header without distortion. */}
+      {!animate && <img src={artwork} alt="" style={{ position: 'absolute', top: '-50%', width: '100%', height: '200%', objectFit: 'contain' }} />}
+      {animate && <DitherVeil src={artwork} fit="contain" pattern="bayer" inkColor="#eef3f7" paperColor="#237c91" rim={0} pixelSize={1} contrast={1.05} wander={false} clickBurst={false} revealRadius={110} softness={0.8} linger={1.4} style={{ position: 'absolute', top: '-50%', bottom: '-50%', left: 0, right: 0, overflow: 'hidden' }} />}
     </Box>
     <Badge colorPalette={active ? 'teal' : 'orange'} px={4} py={2} flexShrink={0}>{statusLabel}</Badge>
   </Flex>;

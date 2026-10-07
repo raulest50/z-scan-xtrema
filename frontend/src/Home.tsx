@@ -4,6 +4,7 @@ import { command } from './api'
 import { useControlSession } from './useControlSession'
 import ZScanVisualComponent from './z_scan_visual_component'
 import TopBanner from './top_banner'
+import StreamingImage from './streaming_image_'
 
 export default function Home() {
   const control = useControlSession()
@@ -65,6 +66,7 @@ export default function Home() {
           {control.stage?.error && <Text role="alert" color="red.700" mt={4}>{control.stage.error}</Text>}
           {error && <Text role="alert" color="red.700" mt={4}>{error}</Text>}
         </Box>
+        <StreamingImage token={control.token.current} />
         <Flex justify="space-between" align="center" wrap="wrap" gap={4}><Text fontSize="sm" color="gray.600">Tu sesión permanece activa aunque no interactúes.</Text><Button variant="outline" onClick={control.release}>Liberar equipo</Button></Flex>
       </Stack>}
       <Text mt={8} fontSize="xs" color="gray.500">Control de laboratorio · React / FastAPI · La parada web no sustituye una parada de emergencia física.</Text>

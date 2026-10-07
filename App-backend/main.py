@@ -10,6 +10,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from Drivers.driver_lin_stage import LinearStage, XpsError
+from Drivers.web_cam import WebCam
 from session import ControlSession
 
 
@@ -18,6 +19,7 @@ async def lifespan(app):
     app.state.stage = LinearStage()
     await app.state.stage.start()
     app.state.session = ControlSession(app.state.stage)
+    app.state.camera = WebCam()
     yield
     await app.state.session.close()
 
@@ -76,6 +78,38 @@ async def stop(x_control_token: str = Header(default="")):
     except PermissionError as exc:
         raise HTTPException(403, str(exc)) from exc
     return app.state.stage.status()
+
+
+@app.websocket('/ws/camera')
+async def camera(ws: WebSocket):
+    origins = os.getenv('ZSCAN_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173,http://localhost:8000,http://127.0.0.1:8000,http://zscan.home.arpa,http://192.168.0.101').split(',')
+    if ws.headers.get('origin') not in origins:
+        await ws.close(code=1008)
+        return
+    await ws.accept()
+    frames = None
+    try:
+        hello = await asyncio.wait_for(ws.receive_json(), 5)
+        if not isinstance(hello, dict):
+            raise ValueError('Solicitud de cámara inválida.')
+        token, fps = hello.get('token'), hello.get('fps', 10)
+        if type(fps) is not int or fps not in WebCam.FPS:
+            raise ValueError('Selecciona 5, 10, 15, 20 o 30 FPS.')
+        app.state.session.authorize_view(token)
+        frames = app.state.camera.frames(fps)
+        async for frame in frames:
+            app.state.session.authorize_view(token)
+            await asyncio.wait_for(ws.send_bytes(frame), 3)
+    except WebSocketDisconnect:
+        pass
+    except (ValueError, PermissionError, RuntimeError, OSError, asyncio.TimeoutError) as exc:
+        with suppress(RuntimeError, WebSocketDisconnect):
+            await ws.send_json({'error': str(exc) or 'Tiempo de espera de cámara agotado.'})
+    finally:
+        if frames:
+            await frames.aclose()
+        with suppress(RuntimeError, WebSocketDisconnect):
+            await ws.close()
 
 
 @app.websocket("/ws")

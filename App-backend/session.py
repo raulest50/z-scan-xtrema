@@ -44,6 +44,10 @@ class ControlSession:
         if not token or token != self.token or self.connection is None:
             raise PermissionError("Sesión de control no válida o desconectada.")
 
+    def authorize_view(self, token):
+        """Validate camera access without acquiring control or calling hardware."""
+        self._authorize(token)
+
     async def disconnect(self, connection, release=False):
         async with self.lock:
             if self.connection != connection:

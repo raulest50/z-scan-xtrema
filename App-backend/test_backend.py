@@ -72,3 +72,42 @@ def test_built_frontend_and_origin_rejection():
         with pytest.raises(WebSocketDisconnect):
             with client.websocket_connect('/ws', headers={'origin': 'http://untrusted.example'}):
                 pass
+
+
+def test_camera_requires_operator_and_valid_settings():
+    from starlette.websockets import WebSocketDisconnect
+    with TestClient(app) as client:
+        with pytest.raises(WebSocketDisconnect):
+            with client.websocket_connect('/ws/camera', headers={'origin': 'http://untrusted.example'}):
+                pass
+        with client.websocket_connect('/ws/camera', headers={'origin': 'http://localhost:5173'}) as camera:
+            camera.send_json({'token': 'invalid', 'fps': 10})
+            assert 'error' in camera.receive_json()
+        for fps in (0, 60, True, '10'):
+            with client.websocket_connect('/ws/camera', headers={'origin': 'http://localhost:5173'}) as camera:
+                camera.send_json({'token': 'invalid', 'fps': fps})
+                assert 'FPS' in camera.receive_json()['error']
+
+
+def test_camera_frames_and_cleanup_without_hardware():
+    closed = []
+
+    class FakeCamera:
+        async def frames(self, fps):
+            assert fps == 15
+            try:
+                yield b'jpeg-test-frame'
+                raise RuntimeError('Camera disconnected')
+            finally:
+                closed.append(True)
+
+    with TestClient(app) as client:
+        app.state.camera = FakeCamera()
+        with client.websocket_connect('/ws', headers={'origin': 'http://localhost:5173'}) as control:
+            control.send_json({})
+            token = control.receive_json()['token']
+            with client.websocket_connect('/ws/camera', headers={'origin': 'http://localhost:5173'}) as camera:
+                camera.send_json({'token': token, 'fps': 15})
+                assert camera.receive_bytes() == b'jpeg-test-frame'
+                assert camera.receive_json()['error'] == 'Camera disconnected'
+        assert closed == [True]
