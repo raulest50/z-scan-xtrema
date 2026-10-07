@@ -25,10 +25,10 @@ class ControlSession:
             self.connection = secrets.token_hex(16)
             return self.token, self.connection
 
-    async def move(self, token, position):
+    async def move(self, token, position, velocity=10.0):
         async with self.lock:
             self._authorize(token)
-            await self.stage.move(position)
+            await self.stage.move(position, velocity)
 
     async def stop(self, token):
         async with self.lock:

@@ -11,13 +11,15 @@ class SimulatedStage:
         self.target = 0.0
         self.moving = False
         self.task = None
+        self.velocity = 10.0
 
     def status(self):
         return {"mode": "simulation", "position_mm": self.position,
                 "target_mm": self.target, "moving": self.moving,
                 "min_mm": -10.0, "max_mm": 10.0, "ready": not self.moving,
                 "connected": True, "can_home": False, "state_label": "Simulación",
-                "operation": "move" if self.moving else None, "error": None}
+                "operation": "move" if self.moving else None, "error": None,
+                "velocity_mm_s": self.velocity}
 
     async def start(self):
         pass
@@ -28,12 +30,15 @@ class SimulatedStage:
     async def home(self):
         await self.move(0)
 
-    async def move(self, position: float):
+    async def move(self, position: float, velocity=10.0):
+        if not math.isfinite(velocity) or not 1 <= velocity <= 50:
+            raise ValueError('Velocidad permitida: 1 a 50 mm/s.')
         if not math.isfinite(position) or not -10 <= position <= 10:
             raise ValueError("Posición fuera del rango simulado [-10, 10] mm.")
         if self.moving:
             raise ValueError("Hay un movimiento en curso.")
         self.target = position
+        self.velocity = velocity
         self.moving = True
         self.task = asyncio.create_task(self._motion())
 
@@ -43,7 +48,7 @@ class SimulatedStage:
             while self.position != self.target:
                 await asyncio.sleep(0.05)
                 now = time.monotonic()
-                step = min(abs(self.target - self.position), (now - previous) * 2)
+                step = min(abs(self.target - self.position), (now - previous) * self.velocity)
                 previous = now
                 self.position += math.copysign(step, self.target - self.position)
         finally:
@@ -212,7 +217,9 @@ class NewportStage:
         finally:
             self.operation = None
 
-    async def move(self, position):
+    async def move(self, position, velocity=10.0):
+        if not math.isfinite(velocity) or not 1 <= velocity <= 50:
+            raise ValueError('Velocidad permitida: 1 a 50 mm/s.')
         await self.refresh()
         if not self.status()['ready']:
             raise ValueError('El eje debe estar referenciado y listo; comprueba su estado.')
@@ -221,18 +228,22 @@ class NewportStage:
         self.fault = None
         self.data['target_mm'] = position
         self.operation = 'move'
-        self.task = asyncio.create_task(self._run_move(position))
+        self.task = asyncio.create_task(self._run_move(position, velocity))
 
-    async def _run_move(self, position):
+    async def _run_move(self, position, velocity):
         try:
             # Conservar aceleración y jerk; limitar velocidad de los movimientos de esta app.
             gamma = [float(v) for v in (await self._call(f'PositionerSGammaParametersGet({self.axis},double *,double *,double *,double *)')).split(',')]
             if len(gamma) != 4 or not all(math.isfinite(v) and v > 0 for v in gamma):
                 raise XpsError('Parámetros de trayectoria inválidos.')
-            gamma[0] = min(gamma[0], 10.0)
+            maximum = [float(v) for v in (await self._call(f'PositionerMaximumVelocityAndAccelerationGet({self.axis},double *,double *)')).split(',')]
+            if len(maximum) != 2 or not all(math.isfinite(v) and v > 0 for v in maximum) or velocity > maximum[0]:
+                raise XpsError('Velocidad solicitada supera el límite validado del controlador.')
+            gamma[0] = float(velocity)
             await self._call(f'PositionerSGammaParametersSet({self.axis},' + ','.join(map(str, gamma)) + ')')
             self.data['velocity_mm_s'] = gamma[0]
-            await self._call(f'GroupMoveAbsolute({self.group},{position:.9f})', 180)
+            # 600 mm a 1 mm/s puede superar el antiguo timeout de 180 s.
+            await self._call(f'GroupMoveAbsolute({self.group},{position:.9f})', 600 / velocity + 60)
             await self.refresh()
             if self.data['state_code'] not in self.READY:
                 raise XpsError('Movimiento finalizado sin confirmación READY.')
@@ -263,9 +274,16 @@ class NewportStage:
             elif code not in self.IDLE or pending:
                 # Homing/initialization cannot be aborted with GroupMoveAbort.
                 await self._call(f'GroupKill({self.group})', 10)
-            await self.refresh()
-            if self.data['state_code'] not in self.IDLE:
-                raise XpsError('Parada no confirmada. Mantener el equipo reservado.')
+            # El acuse de la orden no garantiza que la desaceleración haya terminado.
+            deadline = time.monotonic() + 10
+            while True:
+                await self.refresh()
+                if self.data['state_code'] in self.IDLE:
+                    break
+                if time.monotonic() >= deadline:
+                    raise XpsError('Parada no confirmada. Mantener el equipo reservado.')
+                await asyncio.sleep(0.1)
+            self.data['target_mm'] = self.data['position_mm']
             self.uncertain = False
             self.fault = None
         except XpsError as exc:

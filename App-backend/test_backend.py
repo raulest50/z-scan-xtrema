@@ -18,9 +18,11 @@ def test_exclusive_control_and_validation():
                 other.send_json({})
                 assert other.receive_json() == {'type': 'busy'}
             headers = {'X-Control-Token': token}
+            for velocity in (0, 51, 'bad'):
+                assert client.post('/api/move', headers=headers, json={'position_mm': 5, 'velocity_mm_s': velocity}).status_code == 422
             assert client.post('/api/move', headers=headers, json={'position_mm': 11}).status_code == 409
             assert client.post('/api/move', headers=headers, json={'position_mm': 'bad'}).status_code == 422
-            assert client.post('/api/move', headers=headers, json={'position_mm': 5}).status_code == 200
+            assert client.post('/api/move', headers=headers, json={'position_mm': 5, 'velocity_mm_s': 1}).json()['velocity_mm_s'] == 1
             assert client.post('/api/move', headers=headers, json={'position_mm': 2}).status_code == 409
             assert client.post('/api/stop', headers=headers).json()['moving'] is False
 

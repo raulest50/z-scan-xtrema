@@ -8,25 +8,32 @@ const labLogo = new URL('../../assets/logo_svg.svg', import.meta.url).href
 export default function Home() {
   const control = useControlSession()
   const [position, setPosition] = useState('0')
+  const [velocity, setVelocity] = useState('10')
+  const [notice, setNotice] = useState('')
+  const [stopping, setStopping] = useState(false)
   const [error, setError] = useState('')
   const [pending, setPending] = useState(false)
   const [clear, setClear] = useState(false)
   const active = control.status === 'active'
   async function execute(action: 'move' | 'stop' | 'home') {
-    setError(''); setPending(true)
+    setError(''); setNotice('')
+    if (action === 'stop') setStopping(true)
+    else setPending(true)
     try {
       if (action === 'move' && (!position.trim() || !Number.isFinite(Number(position)))) throw new Error('Introduce una posición numérica.')
+      if (action === 'move' && (!velocity.trim() || !Number.isFinite(Number(velocity)) || Number(velocity) < 1 || Number(velocity) > 50)) throw new Error('Introduce una velocidad entre 1 y 50 mm/s.')
       if (action === 'home' && !clear) throw new Error('Confirma que el recorrido está despejado.')
-      await command(action, control.token.current, Number(position))
+      const result = await command(action, control.token.current, Number(position), Number(velocity))
+      if (action === 'stop') setNotice(result.connected && !result.moving ? 'Controlador en reposo: parada confirmada. Si ya estaba detenido, no hay desplazamiento que cancelar.' : 'Parada sin confirmar: comprueba el controlador y utiliza la parada física si es necesario.')
       if (action === 'home') setClear(false)
     } catch (e) { setError(e instanceof Error ? e.message : 'Error de comunicación; comprueba el estado antes de reintentar.') }
-    finally { setPending(false) }
+    finally { if (action === 'stop') setStopping(false); else setPending(false) }
   }
   const labels = { connecting: 'Conectando…', active: 'Control exclusivo', busy: 'Equipo ocupado', released: 'Control liberado', offline: 'Conexión interrumpida' }
   return <Box minH="100vh" bg="#eef3f7" color="#102a43" px={{ base: 5, md: 12 }} py={10}>
     <Box maxW="1800px" mx="auto">
       <Flex justify="space-between" align="center" gap={4} wrap="wrap" mb={12}>
-        <Flex align="center" gap={{ base: 3, md: 5 }}><Box bg="white" borderRadius="lg" p={2} flexShrink={0}><img src={labLogo} alt="Grupo de Fotónica y Opto-electrónica" width={84} height={74} /></Box><Box><Text fontSize="xs" fontWeight="bold" letterSpacing="0.2em" color="teal.700">INSTRUMENTACIÓN · FOTÓNICA</Text><Heading size={{ base: 'xl', md: '3xl' }} mt={2}>Z-Scan Xtrema</Heading></Box></Flex>
+        <Flex align="center" gap={{ base: 3, md: 5 }} wrap="wrap"><Box bg="white" borderRadius="lg" p={2} flexShrink={0}><img src={labLogo} alt="Grupo de Fotónica y Opto-electrónica" width={168} height={148} style={{ width: 'clamp(100px, 15vw, 168px)', height: 'auto' }} /></Box><Box><Text fontSize="xs" fontWeight="bold" letterSpacing="0.2em" color="teal.700">INSTRUMENTACIÓN · FOTÓNICA</Text><Heading size={{ base: 'xl', md: '3xl' }} mt={2}>Z-Scan Xtrema</Heading></Box></Flex>
         <Badge colorPalette={active ? 'teal' : 'orange'} px={4} py={2}>{labels[control.status]}</Badge>
       </Flex>
       <Box bg="orange.50" borderWidth="1px" borderColor="orange.200" p={4} borderRadius="lg" mb={6}><Text fontWeight="bold">{control.stage?.mode === 'simulation' ? 'Modo de simulación' : control.stage?.mode === 'newport' ? 'Control físico · Newport IMS600CCHA' : 'Esperando estado del instrumento'}</Text><Text fontSize="sm">{control.stage?.mode === 'simulation' ? 'Los controles no mueven el hardware.' : 'El homing y los movimientos actúan sobre el stage real. Mantén el recorrido despejado.'}</Text></Box>
@@ -42,16 +49,18 @@ export default function Home() {
                 <Text fontWeight="bold">Referenciar el eje</Text>
                 <Text fontSize="sm" my={2}>Inicializa y ejecuta el homing configurado en Newport. Cancelarlo deshabilita el grupo y requiere repetir la referencia.</Text>
                 <label><input type="checkbox" checked={clear} onChange={e => setClear(e.target.checked)} /> Confirmo que todo el recorrido está despejado.</label>
-                <Button width="full" whiteSpace="normal" mt={3} onClick={() => execute('home')} disabled={pending || !clear || !control.stage.can_home} colorPalette="orange">Inicializar y hacer homing</Button>
+                <Button width="full" whiteSpace="normal" mt={3} onClick={() => execute('home')} disabled={pending || stopping || !clear || !control.stage.can_home} colorPalette="orange">Inicializar y hacer homing</Button>
               </Box>}
               <Box p={{ base: 4, md: 6 }} bg="gray.50" borderWidth="1px" borderColor="gray.200" borderRadius="lg">
                 <Text fontWeight="bold" mb={3}>Control de posición</Text>
                 <label htmlFor="position">Posición objetivo (mm)</label>
                 <Input id="position" type="number" min={control.stage?.min_mm ?? undefined} max={control.stage?.max_mm ?? undefined} step="0.1" value={position} onChange={e => setPosition(e.target.value)} mt={2} size="lg" bg="white" />
-                <Text fontSize="sm" color="gray.600" mt={3}>Límites: {control.stage?.min_mm ?? '—'} a {control.stage?.max_mm ?? '—'} mm. Movimientos de esta app: máximo 10 mm/s; homing según configuración Newport.</Text>
+                <Box mt={4}><label htmlFor="velocity">Velocidad (mm/s)</label><Input id="velocity" type="number" min={1} max={50} step="1" value={velocity} onChange={e => setVelocity(e.target.value)} mt={2} size="lg" bg="white" /></Box>
+                <Text fontSize="sm" color="gray.600" mt={3}>Límites: {control.stage?.min_mm ?? '—'} a {control.stage?.max_mm ?? '—'} mm. Velocidad de 1 a 50 mm/s para el siguiente movimiento; homing según configuración Newport.</Text>
                 <Stack mt={5} gap={3}>
-                  <Button colorPalette="teal" onClick={() => execute('move')} disabled={pending || !control.stage?.ready}>Mover</Button>
-                  <Button colorPalette="red" variant="outline" whiteSpace="normal" onClick={() => execute('stop')}>Detener / cancelar homing</Button>
+                  <Button colorPalette="teal" onClick={() => execute('move')} disabled={pending || stopping || !control.stage?.ready}>Mover</Button>
+                  <Button colorPalette="red" variant="outline" whiteSpace="normal" disabled={stopping} onClick={() => execute('stop')}>{stopping ? 'Deteniendo…' : 'Detener / cancelar homing'}</Button>
+                  {notice && <Text role="status" fontSize="sm">{notice}</Text>}
                 </Stack>
               </Box>
             </Stack>

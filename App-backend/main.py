@@ -27,6 +27,7 @@ app = FastAPI(title="Z-Scan Xtrema", lifespan=lifespan)
 
 class Move(BaseModel):
     position_mm: float = Field(allow_inf_nan=False)
+    velocity_mm_s: float = Field(default=10.0, ge=1, le=50, allow_inf_nan=False)
 
 
 class HomeRequest(BaseModel):
@@ -60,7 +61,7 @@ async def health():
 @app.post("/api/move")
 async def move(body: Move, x_control_token: str = Header(default="")):
     try:
-        await app.state.session.move(x_control_token, body.position_mm)
+        await app.state.session.move(x_control_token, body.position_mm, body.velocity_mm_s)
     except PermissionError as exc:
         raise HTTPException(403, str(exc)) from exc
     except ValueError as exc:

@@ -14,6 +14,7 @@ class FakeXps(NewportStage):
         self.entered = asyncio.Event()
         self.fail_stop = False
         self.fail_move = False
+        self.hold_move = False
 
     async def _call(self, command, timeout=3):
         self.commands.append(command)
@@ -34,10 +35,15 @@ class FakeXps(NewportStage):
             if self.hold_home: await asyncio.Event().wait()
             self.code = 11
         elif name == 'PositionerSGammaParametersGet': return '200,600,0.005,0.05'
+        elif name == 'PositionerMaximumVelocityAndAccelerationGet': return '200,600'
         elif name == 'PositionerSGammaParametersSet': pass
         elif name == 'GroupMoveAbsolute':
             assert self.code in self.READY
             if self.fail_move: raise XpsError('Lost reply')
+            if self.hold_move:
+                self.code = 44
+                self.entered.set()
+                await asyncio.Event().wait()
             self.code = 12
         elif name in {'GroupKill', 'GroupMoveAbort'}:
             if self.fail_stop: raise XpsError('Lost connection')
@@ -124,4 +130,27 @@ def test_fragmented_tcp_response():
         assert await stage._call('Read()') == '12.3'
         listener.close()
         await listener.wait_closed()
+    asyncio.run(run())
+
+
+def test_velocity_and_stop_during_real_driver_move():
+    async def run():
+        stage = FakeXps()
+        await stage.start()
+        stage.code = 11
+        for velocity in (0, 51, float('nan'), float('inf')):
+            with pytest.raises(ValueError):
+                await stage.move(100, velocity)
+        for velocity in (1, 50):
+            stage.hold_move = True
+            stage.entered.clear()
+            await stage.move(100, velocity)
+            await stage.entered.wait()
+            assert f'PositionerSGammaParametersSet(Group1.Pos,{float(velocity)},600.0,0.005,0.05)' in stage.commands
+            await asyncio.wait_for(stage.stop(), 1)
+            assert stage.status()['ready']
+            assert not stage.status()['moving']
+            assert stage.data['target_mm'] == stage.data['position_mm']
+        assert stage.commands.count('GroupMoveAbort(Group1)') == 2
+        await stage.close()
     asyncio.run(run())

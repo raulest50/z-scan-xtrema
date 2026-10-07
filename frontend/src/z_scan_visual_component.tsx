@@ -21,7 +21,7 @@ export default function ZScanVisualComponent({ positionMm, minMm, maxMm, connect
   const outside = located && (positionMm! < minMm! || positionMm! > maxMm!)
   const status = !connected ? 'Sin telemetría válida' : homing ? 'Homing en curso' : moving ? 'En movimiento' : 'En reposo'
   return <section aria-label="Vista lateral del desplazamiento" style={{ padding: '20px 16px', border: '1px solid #dbe6ed', borderRadius: 16, background: '#f6fafc' }}>
-    <style>{`.zscan-carriage { transition: transform 220ms linear; } @media (prefers-reduced-motion: reduce) { .zscan-carriage { transition: none; } }`}</style>
+    <style>{`.zscan-carriage { transition: transform 700ms linear; } @media (prefers-reduced-motion: reduce) { .zscan-carriage { transition: none; } }`}</style>
     <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
       <div><div style={{ fontSize: 11, letterSpacing: '.14em', color: '#547080' }}>VISTA LATERAL · EJE Z</div><div style={{ marginTop: 6, fontSize: 13, color: '#426272' }}>{simulation ? 'Simulación · ' : ''}{status}</div></div>
       <div style={{ fontSize: 28, fontWeight: 600, color: '#0c7772', fontVariantNumeric: 'tabular-nums' }}>z = {measured ? positionMm!.toFixed(3) : '—'} <span style={{ fontSize: 14 }}>mm</span></div>
@@ -40,7 +40,7 @@ export default function ZScanVisualComponent({ positionMm, minMm, maxMm, connect
       {range && Array.from({ length: 7 }, (_, i) => <g key={i}><path d={`M${120 + i * 560 / 6} 207 v8`} stroke="#849ca9"/><text x={120 + i * 560 / 6} y="239" textAnchor="middle" fontSize="12" fill="#536f80">{Number((minMm! + (maxMm! - minMm!) * i / 6).toFixed(2))}</text></g>)}
       <text x="744" y="239" fontSize="12" fill="#536f80">mm</text>
       <path d="M565 45 H695 l-7 -5 m7 5 l-7 5" fill="none" stroke="#7699a9" strokeWidth="1.5"/><text x="555" y="49" textAnchor="end" fill="#536f80" fontSize="13">+Z</text>
-      {located && <g className="zscan-carriage" style={{ transform: `translateX(${120 + fraction * 560}px)` }}>
+      {located && <g className="zscan-carriage" style={{ transform: `translateX(${120 + fraction * 560}px)`, transitionDuration: moving || homing ? undefined : '0ms' }}>
         <path d="M0 115 V212" stroke="#13998e" strokeDasharray="3 4" opacity=".55"/>
         <rect x="-47" y="116" width="94" height="30" rx="5" fill="#09877f"/>
         <rect x="-56" y="109" width="112" height="9" rx="3" fill="#204c5d"/>
