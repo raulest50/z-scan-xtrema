@@ -1130,6 +1130,9 @@ Tech Stack:
 <ref refid="407e5f5b-c1ee-11f1-a5f1-bc09b9551b3f"/>
 <ref refid="47070e2a-c1ee-11f1-9011-bc09b9551b3f"/>
 <ref refid="547c520a-c1ee-11f1-9fef-bc09b9551b3f"/>
+<ref refid="3a6d0949-c26a-11f1-8d6e-bc09b9551b3f"/>
+<ref refid="6c958e78-c26a-11f1-ba00-bc09b9551b3f"/>
+<ref refid="89f84a7f-c26a-11f1-8846-bc09b9551b3f"/>
 </reflist>
 </ownedPresentation>
 </UML:PackageDiagram>
@@ -1207,6 +1210,8 @@ Tech Stack:
 <ref refid="407e2151-c1ee-11f1-a7ab-bc09b9551b3f"/>
 <ref refid="4706c3c9-c1ee-11f1-a2e3-bc09b9551b3f"/>
 <ref refid="547c20a6-c1ee-11f1-acc8-bc09b9551b3f"/>
+<ref refid="3a6c5f66-c26a-11f1-b16f-bc09b9551b3f"/>
+<ref refid="6c9544f4-c26a-11f1-b0cd-bc09b9551b3f"/>
 </reflist>
 </ownedType>
 <owningPackage>
@@ -1218,6 +1223,8 @@ Tech Stack:
 <ref refid="407e2151-c1ee-11f1-a7ab-bc09b9551b3f"/>
 <ref refid="4706c3c9-c1ee-11f1-a2e3-bc09b9551b3f"/>
 <ref refid="547c20a6-c1ee-11f1-acc8-bc09b9551b3f"/>
+<ref refid="3a6c5f66-c26a-11f1-b16f-bc09b9551b3f"/>
+<ref refid="6c9544f4-c26a-11f1-b0cd-bc09b9551b3f"/>
 </reflist>
 </packagedElement>
 <presentation>
@@ -1228,7 +1235,7 @@ Tech Stack:
 </UML:Package>
 <UML:PackageItem id="2021a056-c1e0-11f1-a0ff-bc09b9551b3f">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, -631.6089131388192, 446.98078294038106)</val>
+<val>(1.0, 0.0, 0.0, 1.0, -631.6089131388192, 445.08867353486113)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -1245,6 +1252,8 @@ Tech Stack:
 <ref refid="407e5f5b-c1ee-11f1-a5f1-bc09b9551b3f"/>
 <ref refid="47070e2a-c1ee-11f1-9011-bc09b9551b3f"/>
 <ref refid="547c520a-c1ee-11f1-9fef-bc09b9551b3f"/>
+<ref refid="3a6d0949-c26a-11f1-8d6e-bc09b9551b3f"/>
+<ref refid="6c958e78-c26a-11f1-ba00-bc09b9551b3f"/>
 </reflist>
 </children>
 <diagram>
@@ -1410,12 +1419,18 @@ zscan.home.arpa</val>
 <ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
 </reflist>
 </ownedDiagram>
+<ownedType>
+<reflist>
+<ref refid="8a9e8309-c26a-11f1-8e37-bc09b9551b3f"/>
+</reflist>
+</ownedType>
 <owningPackage>
 <ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
 </owningPackage>
 <packagedElement>
 <reflist>
 <ref refid="ff3f7a33-c1e9-11f1-bda2-bc09b9551b3f"/>
+<ref refid="8a9e8309-c26a-11f1-8e37-bc09b9551b3f"/>
 </reflist>
 </packagedElement>
 </UML:Package>
@@ -1772,5 +1787,165 @@ zscan.home.arpa</val>
 <ref refid="547c20a6-c1ee-11f1-acc8-bc09b9551b3f"/>
 </subject>
 </UML:ArtifactItem>
+<UML:Artifact id="3a6c5f66-c26a-11f1-b16f-bc09b9551b3f">
+<name>
+<val>splash-screen.tsx</val>
+</name>
+<note>
+<val>funcion estetica. contiene toda la logica de la animacion de splash screen con le logo del laboratorio y un pulso de femtoseundo. debe ser algo dinamico que se muestre por 5s. ya despues de la splash screen que de la bienvenida, se muestra la app normalmente</val>
+</note>
+<owningPackage>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="3a6d0949-c26a-11f1-8d6e-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="3a6d0949-c26a-11f1-8d6e-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 788.2122359632938, 420.973148855757)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>155.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="3a6c5f66-c26a-11f1-b16f-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:Artifact id="6c9544f4-c26a-11f1-b0cd-bc09b9551b3f">
+<name>
+<val>z_scan_visual_component.tsx</val>
+</name>
+<owningPackage>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="6c958e78-c26a-11f1-ba00-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="6c958e78-c26a-11f1-ba00-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 152.60787055019009, 519.362837942793)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>260.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="6c9544f4-c26a-11f1-b0cd-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:AssociationItem id="89f84a7f-c26a-11f1-8846-bc09b9551b3f">
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<head_subject>
+<ref refid="8a9ed267-c26a-11f1-81e5-bc09b9551b3f"/>
+</head_subject>
+<horizontal>
+<val>False</val>
+</horizontal>
+<orthogonal>
+<val>False</val>
+</orthogonal>
+<subject>
+<ref refid="8a9e8309-c26a-11f1-8e37-bc09b9551b3f"/>
+</subject>
+<tail_subject>
+<ref refid="8a9ed9c1-c26a-11f1-a065-bc09b9551b3f"/>
+</tail_subject>
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, -349.00104258862905, 755.9583878003032)</val>
+</matrix>
+<points>
+<val>[(0.0, 2.9091257331549514), (-5.684341886080802e-14, 208.49312367735092)]</val>
+</points>
+<head-connection>
+<ref refid="6f758e96-c1ea-11f1-bcff-bc09b9551b3f"/>
+</head-connection>
+<tail-connection>
+<ref refid="6c958e78-c26a-11f1-ba00-bc09b9551b3f"/>
+</tail-connection>
+</UML:AssociationItem>
+<UML:Association id="8a9e8309-c26a-11f1-8e37-bc09b9551b3f">
+<memberEnd>
+<reflist>
+<ref refid="8a9ed267-c26a-11f1-81e5-bc09b9551b3f"/>
+<ref refid="8a9ed9c1-c26a-11f1-a065-bc09b9551b3f"/>
+</reflist>
+</memberEnd>
+<ownedEnd>
+<reflist>
+<ref refid="8a9ed267-c26a-11f1-81e5-bc09b9551b3f"/>
+<ref refid="8a9ed9c1-c26a-11f1-a065-bc09b9551b3f"/>
+</reflist>
+</ownedEnd>
+<owningPackage>
+<ref refid="f533f35a-c1e9-11f1-a0f9-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="f533f35a-c1e9-11f1-a0f9-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="89f84a7f-c26a-11f1-8846-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Association>
+<UML:Property id="8a9ed267-c26a-11f1-81e5-bc09b9551b3f">
+<association>
+<ref refid="8a9e8309-c26a-11f1-8e37-bc09b9551b3f"/>
+</association>
+<owningAssociation>
+<ref refid="8a9e8309-c26a-11f1-8e37-bc09b9551b3f"/>
+</owningAssociation>
+<type>
+<ref refid="6f753892-c1ea-11f1-8e25-bc09b9551b3f"/>
+</type>
+</UML:Property>
+<UML:Property id="8a9ed9c1-c26a-11f1-a065-bc09b9551b3f">
+<association>
+<ref refid="8a9e8309-c26a-11f1-8e37-bc09b9551b3f"/>
+</association>
+<owningAssociation>
+<ref refid="8a9e8309-c26a-11f1-8e37-bc09b9551b3f"/>
+</owningAssociation>
+<type>
+<ref refid="6c9544f4-c26a-11f1-b0cd-bc09b9551b3f"/>
+</type>
+</UML:Property>
 </model>
 </gaphor>
