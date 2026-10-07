@@ -41,6 +41,9 @@ No aprovechar esa distinción para introducir archivos fuente sin aprobación.
   por sesión de control; FPS, pausa, reintento y limpieza de recursos. Sin grabación.
 - `frontend/src/main.tsx`: arranque y composición de proveedores/vistas.
 - `frontend/src/Home.tsx`: panel de operación y composición de vistas.
+- `frontend/src/user_preferences.ts`: preferencias locales versionadas y validadas
+  (distribución de tarjetas y FPS); recuperación ante datos inválidos o almacenamiento
+  bloqueado. Nunca persiste órdenes, homing ni credenciales de sesión.
 - `frontend/src/top_banner.tsx`: identidad del laboratorio, estado de sesión por props
   y Dither Veil adaptado con ilustración conceptual raster, decorativa y horizontal
   (`assets/zscan_optical_banner.png`); no representa un montaje calibrado.
