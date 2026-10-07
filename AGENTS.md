@@ -36,7 +36,10 @@ No aprovechar esa distinción para introducir archivos fuente sin aprobación.
 - `App-backend/session.py`: control exclusivo del operador y reconexión.
 - `App-backend/Drivers/driver_lin_stage.py`: adaptadores Newport y simulación.
 - `frontend/src/main.tsx`: arranque y composición de proveedores/vistas.
-- `frontend/src/Home.tsx`: panel de operación y barra superior.
+- `frontend/src/Home.tsx`: panel de operación y composición de vistas.
+- `frontend/src/top_banner.tsx`: identidad del laboratorio, estado de sesión por props
+  y Dither Veil adaptado con ilustración SVG original, decorativa y horizontal.
+  Incluye licencia del código de terceros; no realiza comunicaciones con hardware.
 - `frontend/src/z_scan_visual_component.tsx`: vista lateral del stage y posición Z;
   recibe telemetría mediante props desde Home, sin conexiones ni órdenes propias.
   Suaviza cambios recibidos, sin predecir movimiento ni confundir Z con el foco óptico.

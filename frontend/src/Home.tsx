@@ -3,7 +3,7 @@ import { Badge, Box, Button, Flex, Heading, Input, Stack, Text } from '@chakra-u
 import { command } from './api'
 import { useControlSession } from './useControlSession'
 import ZScanVisualComponent from './z_scan_visual_component'
-const labLogo = new URL('../../assets/logo_svg.svg', import.meta.url).href
+import TopBanner from './top_banner'
 
 export default function Home() {
   const control = useControlSession()
@@ -32,10 +32,7 @@ export default function Home() {
   const labels = { connecting: 'Conectando…', active: 'Control exclusivo', busy: 'Equipo ocupado', released: 'Control liberado', offline: 'Conexión interrumpida' }
   return <Box minH="100vh" bg="#eef3f7" color="#102a43" px={{ base: 5, md: 12 }} py={10}>
     <Box maxW="1800px" mx="auto">
-      <Flex justify="space-between" align="center" gap={4} wrap="wrap" mb={12}>
-        <Flex align="center" gap={{ base: 3, md: 5 }} wrap="wrap"><Box bg="white" borderRadius="lg" p={2} flexShrink={0}><img src={labLogo} alt="Grupo de Fotónica y Opto-electrónica" width={168} height={148} style={{ width: 'clamp(100px, 15vw, 168px)', height: 'auto' }} /></Box><Box><Text fontSize="xs" fontWeight="bold" letterSpacing="0.2em" color="teal.700">INSTRUMENTACIÓN · FOTÓNICA</Text><Heading size={{ base: 'xl', md: '3xl' }} mt={2}>Z-Scan Xtrema</Heading></Box></Flex>
-        <Badge colorPalette={active ? 'teal' : 'orange'} px={4} py={2}>{labels[control.status]}</Badge>
-      </Flex>
+      <TopBanner active={active} statusLabel={labels[control.status]} />
       <Box bg="orange.50" borderWidth="1px" borderColor="orange.200" p={4} borderRadius="lg" mb={6}><Text fontWeight="bold">{control.stage?.mode === 'simulation' ? 'Modo de simulación' : control.stage?.mode === 'newport' ? 'Control físico · Newport IMS600CCHA' : 'Esperando estado del instrumento'}</Text><Text fontSize="sm">{control.stage?.mode === 'simulation' ? 'Los controles no mueven el hardware.' : 'El homing y los movimientos actúan sobre el stage real. Mantén el recorrido despejado.'}</Text></Box>
       {!active ? <Box bg="white" p={10} borderRadius="xl" borderWidth="1px"><Heading size="xl">{labels[control.status]}</Heading><Text mt={3}>{control.status === 'busy' ? 'Actualmente no está disponible: otro operador tiene el control o el instrumento no está disponible para una nueva sesión.' : 'El panel se habilita cuando el servidor concede una sesión exclusiva.'}</Text>{(control.status === 'busy' || control.status === 'released') && <Button mt={6} onClick={control.retry} colorPalette="teal">Solicitar control</Button>}</Box> : <Stack gap={6}>
         <Box bg="white" borderWidth="1px" borderRadius="xl" p={{ base: 6, md: 10 }}>
