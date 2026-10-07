@@ -281,42 +281,17 @@ commentline {
 
 :is(node, artifact):focus {
   line-width: 4;
-}
-
-
-
-
-package {
-    justify-content: start;
-    text-align: center;
-    padding: 24 12 8 12;
-}
-
-package name {
-    text-align: center;
-}
-
-
-
-
-
-</val>
+}</val>
 </styleSheet>
 </Core:StyleSheet>
 <UML:Package id="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed">
 <name>
 <val>Z-Scan-Xtrema</val>
 </name>
-<nestedPackage>
-<reflist>
-<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
-<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
-</reflist>
-</nestedPackage>
 <ownedDiagram>
 <reflist>
-<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
-<ref refid="da24f31b-c1bf-11f1-8fae-bc09b9551b3f"/>
+<ref refid="58d6c536-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="186ad636-c1c3-11f1-bb75-bc09b9551b3f"/>
 </reflist>
 </ownedDiagram>
 <ownedType>
@@ -329,7 +304,6 @@ package name {
 <ref refid="5aae26fd-c1c1-11f1-8c68-bc09b9551b3f"/>
 <ref refid="6166630d-c1c1-11f1-9a61-bc09b9551b3f"/>
 <ref refid="7f4d3374-c1cb-11f1-ba1c-bc09b9551b3f"/>
-<ref refid="1c3a3991-c1d1-11f1-a88c-bc09b9551b3f"/>
 </reflist>
 </ownedType>
 <packagedElement>
@@ -337,20 +311,30 @@ package name {
 <ref refid="e89783a0-c1bf-11f1-b7f1-bc09b9551b3f"/>
 <ref refid="eab91aae-c1bf-11f1-b135-bc09b9551b3f"/>
 <ref refid="18f96a1a-c1c0-11f1-b579-bc09b9551b3f"/>
-<ref refid="53a666e3-c1c1-11f1-8658-bc09b9551b3f"/>
-<ref refid="5aae26fd-c1c1-11f1-8c68-bc09b9551b3f"/>
-<ref refid="6166630d-c1c1-11f1-9a61-bc09b9551b3f"/>
-<ref refid="7f4d3374-c1cb-11f1-ba1c-bc09b9551b3f"/>
-<ref refid="1c3a3991-c1d1-11f1-a88c-bc09b9551b3f"/>
-<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
-<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
 <ref refid="23725400-c1c0-11f1-be8e-bc09b9551b3f"/>
+<ref refid="53a666e3-c1c1-11f1-8658-bc09b9551b3f"/>
+<ref refid="6166630d-c1c1-11f1-9a61-bc09b9551b3f"/>
+<ref refid="5aae26fd-c1c1-11f1-8c68-bc09b9551b3f"/>
+<ref refid="7f4d3374-c1cb-11f1-ba1c-bc09b9551b3f"/>
 </reflist>
 </packagedElement>
 </UML:Package>
-<UML:DeploymentDiagram id="da24f31b-c1bf-11f1-8fae-bc09b9551b3f">
+<UML:Diagram id="58d6c536-66f8-11ec-b4c8-0456e5e540ed">
 <element>
 <ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+</element>
+<name>
+<val>Z-scan-Xtrema</val>
+</name>
+<ownedDiagram>
+<reflist>
+<ref refid="da24f31b-c1bf-11f1-8fae-bc09b9551b3f"/>
+</reflist>
+</ownedDiagram>
+</UML:Diagram>
+<UML:DeploymentDiagram id="da24f31b-c1bf-11f1-8fae-bc09b9551b3f">
+<element>
+<ref refid="58d6c536-66f8-11ec-b4c8-0456e5e540ed"/>
 </element>
 <name>
 <val>Deployment</val>
@@ -362,7 +346,6 @@ package name {
 <ref refid="b07710a5-c1c3-11f1-a630-bc09b9551b3f"/>
 <ref refid="5a6108fe-c1c6-11f1-93e9-bc09b9551b3f"/>
 <ref refid="7f4d8401-c1cb-11f1-870e-bc09b9551b3f"/>
-<ref refid="1c3a91d5-c1d1-11f1-ae5a-bc09b9551b3f"/>
 <ref refid="18f9b187-c1c0-11f1-9efa-bc09b9551b3f"/>
 <ref refid="2372a857-c1c0-11f1-8634-bc09b9551b3f"/>
 <ref refid="504e9d2a-c1c1-11f1-ad77-bc09b9551b3f"/>
@@ -391,10 +374,10 @@ package name {
 <ref refid="53a6aa3a-c1c1-11f1-994a-bc09b9551b3f"/>
 </tail_subject>
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 204.81508577621995, 263.53534864852196)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 207.54105065284782, 263.53534864852213)</val>
 </matrix>
 <points>
-<val>[(12.725964876627899, -47.13658794435753), (15.45192975325574, 124.46465135147787)]</val>
+<val>[(12.72596487662787, -55.91496989857501), (12.72596487662787, 124.46465135147787)]</val>
 </points>
 <head-connection>
 <ref refid="eab952b9-c1bf-11f1-84c9-bc09b9551b3f"/>
@@ -492,13 +475,10 @@ package name {
 <val>Router</val>
 </name>
 <note>
-<val>Rol: red local de control para la Kria y el Newport XPS-RL.
-LAN documentada: 192.168.0.0/24
-Gateway verificado: 192.168.0.1
-Conectividad disponible: Ethernet y Wi-Fi.
-El XPS-RL está conectado mediante su puerto HOST Ethernet.
-Reserva requerida: 192.168.0.254 no debe asignarse por DHCP a otro equipo.
-Actualizado: 2026-10-06.</val>
+<val>gateway: 192.168.0.1
+acceso a internet
+capacidad conexion cableada y wifi
+</val>
 </note>
 <owningPackage>
 <ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
@@ -517,13 +497,13 @@ Actualizado: 2026-10-06.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 143.99999999999994, -129.91947365747077)</val>
 </matrix>
 <top-left>
-<val>(1.1368683772161603e-13, -590.7102819605184)</val>
+<val>(0.0, -332.1548059313473)</val>
 </top-left>
 <width>
-<val>1562.0016254425623</val>
+<val>1315.3714908975594</val>
 </width>
 <height>
-<val>937.0285163221533</val>
+<val>669.6946583387653</val>
 </height>
 <children>
 <reflist>
@@ -546,18 +526,6 @@ Actualizado: 2026-10-06.</val>
 <ref refid="b076c2ef-c1c3-11f1-a2d4-bc09b9551b3f"/>
 </reflist>
 </nestedNode>
-<note>
-<val>Hardware: AMD/Xilinx Kria KV260.
-Sistema previsto: Linux con PYNQ.
-IP documentada en la topología previa: 192.168.0.101/24 
-Gateway documentado: 192.168.0.1 
-
-Rol: alojar la aplicación web y controlar la FPGA mediante PYNQ.
-Comunicación con XPS-RL: Ethernet TCP hacia 192.168.0.254:5001.
-
-[DATOS PENDIENTES] hostname, MAC, IP actual y versiones exactas de Linux y PYNQ.
-Actualizado: 2026-10-06.</val>
-</note>
 <owningPackage>
 <ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
 </owningPackage>
@@ -594,12 +562,6 @@ Actualizado: 2026-10-06.</val>
 <name>
 <val>Linear Stage</val>
 </name>
-<note>
-<val>
-[DATOS PENDIENTES] fabricante y modelo exactos, grupo/positioner configurado, unidades, límites de recorrido y procedimiento de home/referencia.
-No modificar stages.ini, parámetros servo ni configuración del stage sin respaldo y validación previa.
-Actualizado: 2026-10-06.</val>
-</note>
 <owningPackage>
 <ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
 </owningPackage>
@@ -637,24 +599,11 @@ Actualizado: 2026-10-06.</val>
 <val>Stage Driver</val>
 </name>
 <note>
-<val>Equipo: Newport XPS-RL Motion Controller.
-Tarjeta driver observada físicamente: XPS-DRV03.
-Hostname observado: XPS-7308
-IP verificada: 192.168.0.254
-Puerto web verificado: TCP 80
-Puerto API verificado: TCP 5001
-FirmwareVersionGet: XPS-RL V1.0
-FirmwareBuildVersionNumberGet: XPS Unified V1.0.2
-InstallerVersionGet: XPS-RL-N100009-MREF
-Protocolo verificado: comandos ASCII con forma Funcion(argumentos)
+<val>IP del controlador: 192.168.0.254
+Puerto de control: TCP 5001
+Protocolo: comandos ASCII con forma Funcion(argumentos)
 Terminador de respuesta: ,EndOfAPI
-Resultado 0 indica ejecución correcta.
-
-Comunicación directa TCP confirmada; no se requiere DLL de Windows ni ingeniería inversa con Wireshark 
-
-Documentación aplicable: XPS-RL User's Manual V1.0.x y XPS Unified Programmer's Manual.
-
-Verificado: 2026-10-06.</val>
+Documentación aplicable: XPS‑RL User’s Manual V1.0.x y XPS Unified Programmer’s Manual.</val>
 </note>
 <owningPackage>
 <ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
@@ -821,6 +770,14 @@ Verificado: 2026-10-06.</val>
 <ref refid="23725400-c1c0-11f1-be8e-bc09b9551b3f"/>
 </type>
 </UML:Property>
+<UML:ComponentDiagram id="186ad636-c1c3-11f1-bb75-bc09b9551b3f">
+<element>
+<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+</element>
+<name>
+<val>Diagrama Componentes</val>
+</name>
+</UML:ComponentDiagram>
 <UML:Node id="b076c2ef-c1c3-11f1-a2d4-bc09b9551b3f">
 <name>
 <val>Linux</val>
@@ -833,14 +790,6 @@ Verificado: 2026-10-06.</val>
 <node>
 <ref refid="eab91aae-c1bf-11f1-b135-bc09b9551b3f"/>
 </node>
-<note>
-<val>Entorno de ejecución dentro de la Kria KV260.
-Responsabilidad: red, procesos, archivos, servicio web y acceso al runtime PYNQ.
-Despliegue inicial recomendado: entorno virtual Python y servicio systemd.
-Docker se difiere para evitar complejidad prematura con FPGA, dispositivos y permisos.
-[DATOS PENDIENTES] distribución, versión del kernel, versión de Python y configuración de red instaladas.
-Actualizado: 2026-10-06.</val>
-</note>
 <presentation>
 <reflist>
 <ref refid="b07710a5-c1c3-11f1-a630-bc09b9551b3f"/>
@@ -852,13 +801,13 @@ Actualizado: 2026-10-06.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 626.3319615912205, 19.780637737984883)</val>
 </matrix>
 <top-left>
-<val>(-459.7612921104267, -564.9877363519239)</val>
+<val>(-403.33196159122065, -300.05888444715515)</val>
 </top-left>
 <width>
-<val>1081.9645817964436</val>
+<val>997.2565157750342</val>
 </width>
 <height>
-<val>861.189877411188</val>
+<val>540.4663923182441</val>
 </height>
 <children>
 <reflist>
@@ -879,13 +828,11 @@ Actualizado: 2026-10-06.</val>
 <clientDependency>
 <reflist>
 <ref refid="7f4e957a-c1cb-11f1-9cf9-bc09b9551b3f"/>
-<ref refid="1c3bc52b-c1d1-11f1-9401-bc09b9551b3f"/>
 </reflist>
 </clientDependency>
 <deployment>
 <reflist>
 <ref refid="7f4e957a-c1cb-11f1-9cf9-bc09b9551b3f"/>
-<ref refid="1c3bc52b-c1d1-11f1-9401-bc09b9551b3f"/>
 </reflist>
 </deployment>
 <name>
@@ -894,18 +841,6 @@ Actualizado: 2026-10-06.</val>
 <node>
 <ref refid="b076c2ef-c1c3-11f1-a2d4-bc09b9551b3f"/>
 </node>
-<note>
-<val>Runtime planificado para la aplicación Z-Scan-Xtrema.
-Backend: Python, FastAPI y Uvicorn con un solo worker para evitar competencia por el XPS-RL y la FPGA.
-Frontend: Vue 3, TypeScript y Vite; el build estático será servido por FastAPI/Uvicorn.
-Interfaz web: REST para órdenes validadas y WebSocket para estado y telemetría.
-Adaptador Newport: socket TCP ASCII directo hacia 192.168.0.254:5001.
-Adaptador FPGA: PYNQ con artifacts .bit y .hwh.
-Seguridad: el navegador no debe enviar comandos XPS arbitrarios; el backend valida estado, límites y operaciones permitidas.
-Despliegue inicial: entorno virtual y systemd, sin Docker.
-Estado: arquitectura definida; implementación pendiente.
-Actualizado: 2026-10-06.</val>
-</note>
 <presentation>
 <reflist>
 <ref refid="5a6108fe-c1c6-11f1-93e9-bc09b9551b3f"/>
@@ -917,18 +852,17 @@ Actualizado: 2026-10-06.</val>
 <val>(1.0, 0.0, 0.0, 1.0, -312.628582853378, -218.0590145976501)</val>
 </matrix>
 <top-left>
-<val>(-13.703378737842513, -299.740235320784)</val>
+<val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>346.8820492502432</val>
+<val>644.3069776319539</val>
 </width>
 <height>
-<val>766.8129045442084</val>
+<val>376.46665261923386</val>
 </height>
 <children>
 <reflist>
 <ref refid="7f4d8401-c1cb-11f1-870e-bc09b9551b3f"/>
-<ref refid="1c3a91d5-c1d1-11f1-ae5a-bc09b9551b3f"/>
 </reflist>
 </children>
 <diagram>
@@ -950,11 +884,6 @@ Actualizado: 2026-10-06.</val>
 <name>
 <val>Backend</val>
 </name>
-<note>
-<val>Stack: FastAPI ejecutado por Uvicorn.
-Responsabilidades: servir el frontend compilado, exponer REST y WebSocket, coordinar el XPS-RL y encapsular PYNQ.
-</val>
-</note>
 <owningPackage>
 <ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
 </owningPackage>
@@ -974,16 +903,16 @@ Responsabilidades: servir el frontend compilado, exponer REST y WebSocket, coord
 </UML:Artifact>
 <UML:ArtifactItem id="7f4d8401-c1cb-11f1-870e-bc09b9551b3f">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 73.95642327654916, 195.55486679085942)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 226.59777872934757, 102.11126595358078)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>154.9999999999999</val>
+<val>191.11142017325892</val>
 </width>
 <height>
-<val>172.08492030485456</val>
+<val>192.84479999999996</val>
 </height>
 <diagram>
 <ref refid="da24f31b-c1bf-11f1-8fae-bc09b9551b3f"/>
@@ -1015,168 +944,5 @@ Responsabilidades: servir el frontend compilado, exponer REST y WebSocket, coord
 </reflist>
 </supplier>
 </UML:Deployment>
-<UML:Artifact id="1c3a3991-c1d1-11f1-a88c-bc09b9551b3f">
-<deployment>
-<reflist>
-<ref refid="1c3bc52b-c1d1-11f1-9401-bc09b9551b3f"/>
-</reflist>
-</deployment>
-<name>
-<val>Front End dist</val>
-</name>
-<note>
-<val>Interfaz grafica para el usuario.
-
-Tech Stack:
-- react latest version
-- chakra ui v3
-</val>
-</note>
-<owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
-</owningPackage>
-<package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
-</package>
-<presentation>
-<reflist>
-<ref refid="1c3a91d5-c1d1-11f1-ae5a-bc09b9551b3f"/>
-</reflist>
-</presentation>
-<supplierDependency>
-<reflist>
-<ref refid="1c3bc52b-c1d1-11f1-9401-bc09b9551b3f"/>
-</reflist>
-</supplierDependency>
-</UML:Artifact>
-<UML:ArtifactItem id="1c3a91d5-c1d1-11f1-ae5a-bc09b9551b3f">
-<matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 73.95642327654917, -153.11886675958368)</val>
-</matrix>
-<top-left>
-<val>(0.0, 0.0)</val>
-</top-left>
-<width>
-<val>154.9999999999999</val>
-</width>
-<height>
-<val>170.21561177794524</val>
-</height>
-<diagram>
-<ref refid="da24f31b-c1bf-11f1-8fae-bc09b9551b3f"/>
-</diagram>
-<parent>
-<ref refid="5a6108fe-c1c6-11f1-93e9-bc09b9551b3f"/>
-</parent>
-<subject>
-<ref refid="1c3a3991-c1d1-11f1-a88c-bc09b9551b3f"/>
-</subject>
-</UML:ArtifactItem>
-<UML:Deployment id="1c3bc52b-c1d1-11f1-9401-bc09b9551b3f">
-<client>
-<reflist>
-<ref refid="5a60cdc0-c1c6-11f1-9482-bc09b9551b3f"/>
-</reflist>
-</client>
-<deployedArtifact>
-<reflist>
-<ref refid="1c3a3991-c1d1-11f1-a88c-bc09b9551b3f"/>
-</reflist>
-</deployedArtifact>
-<location>
-<ref refid="5a60cdc0-c1c6-11f1-9482-bc09b9551b3f"/>
-</location>
-<supplier>
-<reflist>
-<ref refid="1c3a3991-c1d1-11f1-a88c-bc09b9551b3f"/>
-</reflist>
-</supplier>
-</UML:Deployment>
-<UML:PackageDiagram id="86f1293d-c1df-11f1-be5b-bc09b9551b3f">
-<element>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
-</element>
-<name>
-<val>Front y Backend</val>
-</name>
-<ownedPresentation>
-<reflist>
-<ref refid="f767011b-c1df-11f1-acc7-bc09b9551b3f"/>
-<ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
-</reflist>
-</ownedPresentation>
-</UML:PackageDiagram>
-<UML:Package id="f766b6cc-c1df-11f1-812e-bc09b9551b3f">
-<name>
-<val>Backend</val>
-</name>
-<nestingPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
-</nestingPackage>
-<owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
-</owningPackage>
-<presentation>
-<reflist>
-<ref refid="f767011b-c1df-11f1-acc7-bc09b9551b3f"/>
-</reflist>
-</presentation>
-</UML:Package>
-<UML:PackageItem id="f767011b-c1df-11f1-acc7-bc09b9551b3f">
-<matrix>
-<val>(1.0, 0.0, 0.0, 1.0, -631.6089131388193, -463.559657509492)</val>
-</matrix>
-<top-left>
-<val>(0.0, 0.0)</val>
-</top-left>
-<width>
-<val>1830.0485421074354</val>
-</width>
-<height>
-<val>756.2491842771378</val>
-</height>
-<diagram>
-<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
-</diagram>
-<subject>
-<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
-</subject>
-</UML:PackageItem>
-<UML:Package id="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f">
-<name>
-<val>FrontEnd</val>
-</name>
-<nestingPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
-</nestingPackage>
-<owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
-</owningPackage>
-<presentation>
-<reflist>
-<ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
-</reflist>
-</presentation>
-</UML:Package>
-<UML:PackageItem id="2021a056-c1e0-11f1-a0ff-bc09b9551b3f">
-<matrix>
-<val>(1.0, 0.0, 0.0, 1.0, -631.6089131388192, 446.98078294038106)</val>
-</matrix>
-<top-left>
-<val>(0.0, 0.0)</val>
-</top-left>
-<width>
-<val>1830.0485421074354</val>
-</width>
-<height>
-<val>950.8702745166163</val>
-</height>
-<diagram>
-<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
-</diagram>
-<subject>
-<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
-</subject>
-</UML:PackageItem>
 </model>
 </gaphor>
