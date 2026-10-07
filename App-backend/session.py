@@ -16,6 +16,8 @@ class ControlSession:
         async with self.lock:
             if self.token and (previous != self.token or self.connection is not None):
                 return None
+            if self.token is None and not await self.stage.available():
+                return None
             if self.expiry:
                 self.expiry.cancel()
                 self.expiry = None
@@ -33,6 +35,11 @@ class ControlSession:
             self._authorize(token)
             await self.stage.stop()
 
+    async def home(self, token):
+        async with self.lock:
+            self._authorize(token)
+            await self.stage.home()
+
     def _authorize(self, token):
         if not token or token != self.token or self.connection is None:
             raise PermissionError("Sesión de control no válida o desconectada.")
@@ -41,9 +48,11 @@ class ControlSession:
         async with self.lock:
             if self.connection != connection:
                 return
-            self.connection = None
             # Confirmar parada antes de permitir que otro operador tome control.
-            await self.stage.stop()
+            try:
+                await self.stage.stop()
+            finally:
+                self.connection = None
             if release:
                 self.token = None
             else:

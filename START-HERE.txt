@@ -1,6 +1,17 @@
 Z-SCAN XTREMA — primera implementación
 
-Estado: simulación funcional. No desplegado en Kria; no controla hardware.
+Estado: driver Newport real desplegado en Kria, incluido homing explícito.
+La simulación sigue disponible mediante ZSCAN_STAGE_MODE=simulation.
+VALIDACIÓN: conexión real y consultas verificadas; homing/movimiento físico
+NO ejecutados durante el despliegue. Ocho tests pasan con transporte falso.
+URL: http://zscan.home.arpa:8000 (alternativa http://192.168.0.101:8000).
+Ruta remota: /home/ubuntu/zscan-app. Servicio: zscan.service, inicio automático.
+Python remoto: /usr/bin/python3 (3.10.12), entorno aislado en App-backend/.venv.
+uv instalado en /home/ubuntu/zscan-tools; dependencias de producción desde uv.lock.
+PYNQ/Jupyter continúa en el puerto 80. No se incorporó PYNQ al entorno de la app.
+Administración: sudo systemctl status|restart|stop zscan
+Registros: journalctl -u zscan -n 100 --no-pager
+Verificación desde Windows: uv run --project App-backend python App-backend/check_deployment.py --mode newport
 El diagrama puede incluir solo main.py, session.py, driver_lin_stage.py,
 main.tsx, Home.tsx, api.ts y useControlSession.ts.
 
@@ -31,7 +42,7 @@ Ejecutar UNA instancia con UN worker. No usar --reload durante control físico.
 El token es exclusión mutua, no autenticación de usuarios. La interfaz Newport
 externa no queda bloqueada por esta aplicación.
 
-KRIA / PYNQ (pendiente, no ejecutado)
+INTEGRACIÓN PYNQ (pendiente)
 Identificar primero el intérprete que importa PYNQ y sus dependencias.
 Crear el entorno a partir de ese intérprete; considerar system-site-packages
 si PYNQ está instalado globalmente, verificando que no se oculten sus versiones.
@@ -40,11 +51,34 @@ pero no captura bibliotecas ni controladores del sistema/PYNQ.
 No se modifica el servicio Jupyter ni el puerto 80.
 ZSCAN_ORIGINS permite una lista separada por comas de orígenes web autorizados.
 
-HARDWARE PENDIENTE
-driver_lin_stage.py contiene un simulador explícito con rango ilustrativo
-[-10, 10] mm. ZSCAN_STAGE_MODE diferente de simulation impide el arranque.
-Antes de implementar modo Newport: confirmar firmware/API, grupo y positioner,
-modelo/rango/unidades, parada y estado de referencia. No ejecutar homing,
-habilitación de movimiento ni reconexión que repita comandos automáticamente.
-Las llamadas reales bloqueantes deberán ejecutarse fuera del event loop y
-permitir una vía de parada independiente de una orden de movimiento en curso.
+HARDWARE REAL (verificado 2026-10-06)
+XPS-RL V1.0, 192.168.0.254:5001, Group1 / Group1.Pos, IMS600CCHA.
+Límites consultados: 0..600 mm. No representan zonas libres de obstáculos.
+HomeSearchSequenceType: MechanicalZeroAndIndexHomeSearch; timeout Newport 26 s.
+La interfaz exige confirmar recorrido despejado para inicializar y hacer homing.
+Estado 0/7 -> GroupInitialize -> 42 -> GroupHomeSearch -> READY.
+Si ya está READY no se fuerza re-homing mediante un reset automático.
+GroupMoveAbsolute solo se admite en READY y dentro de límites consultados.
+Velocidad configurada leída inicialmente: 200 mm/s. Al solicitar movimiento,
+la app aplica como máximo 10 mm/s y conserva aceleración/jerk. Este ajuste afecta
+al grupo también si luego se usa la web Newport. No se escribe stages.ini.
+El homing conserva los parámetros del fabricante; no usa este límite de 10 mm/s.
+Parada normal: GroupMoveAbort; cancelación de homing/inicialización: GroupKill,
+que deshabilita el grupo y obliga a referenciarlo de nuevo.
+Timeout/error incierto: no repetir movimiento; intentar GroupKill, bloquear
+órdenes hasta confirmar parada. Nunca interpretar un timeout como movimiento terminado.
+Sockets asíncronos separados para telemetría, orden y parada.
+Sin enlace de red no se puede garantizar una parada: disponer de parada física.
+El inicio y reinicio normales de la app solo consultan; no hacen homing automático.
+No operar simultáneamente desde la web Newport: esta app no controla esos accesos.
+
+RESPALDO PREVIO EN KRIA
+/home/ubuntu/zscan-before-real-20261006.tar.gz (código/servicio anteriores, sin venv)
+/home/ubuntu/zscan-simulation-20261006.service (unidad systemd anterior)
+
+FUENTES TÉCNICAS
+Newport XPS Unified Programmer's Manual EDH0373En1030, 12/19:
+secciones GroupInitialize, GroupHomeSearch, GroupMoveAbsolute, GroupMoveAbort,
+GroupKill, PositionerSGammaParametersGet/Set.
+https://www.newport.com/medias/sys_master/root/h2a/he8/9408488079390/EDH0373-XPS-Unified-Programmer-s-Manual-.pdf
+Modelo y unidades: https://www.newport.com/p/IMS600CCHA

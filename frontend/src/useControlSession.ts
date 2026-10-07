@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-export type StageState = { position_mm: number; target_mm: number; moving: boolean; mode: string }
+export type StageState = { position_mm: number | null; target_mm: number | null; moving: boolean; mode: string; connected: boolean; ready: boolean; can_home: boolean; state_label: string; state_code: number | null; operation: string | null; error: string | null; min_mm: number | null; max_mm: number | null; model?: string; velocity_mm_s?: number }
 type Status = 'connecting' | 'active' | 'busy' | 'released' | 'offline'
 
 /** Reserva por pestaña; los ping/pong son gestionados por WebSocket/Uvicorn. */
@@ -31,6 +31,12 @@ export function useControlSession() {
         } else if (data.type === 'busy') {
           busy = true; token.current = ''
           sessionStorage.removeItem('zscan-control'); setStatus('busy')
+        } else if (data.type === 'released') {
+          released.current = true; token.current = ''
+          sessionStorage.removeItem('zscan-control'); setStage(null); setStatus('released')
+        } else if (data.type === 'release_failed') {
+          released.current = false
+          setStage(current => current ? {...current, error: data.detail} : current)
         } else if (data.type === 'state') setStage(data)
       }
       ws.onclose = () => {
@@ -42,12 +48,9 @@ export function useControlSession() {
     return () => { disposed = true; clearTimeout(timer); socket.current?.close() }
   }, [attempt])
   function release() {
-    released.current = true
     if (socket.current?.readyState === WebSocket.OPEN)
       socket.current.send(JSON.stringify({ type: 'release' }))
     else socket.current?.close()
-    token.current = ''; sessionStorage.removeItem('zscan-control')
-    setStage(null); setStatus('released')
   }
   return { status, stage, token, release, retry: () => setAttempt(x => x + 1) }
 }

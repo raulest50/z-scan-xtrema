@@ -1,9 +1,9 @@
 /** Órdenes al backend; nunca se conecta al controlador físico. */
-export async function command(action: 'move' | 'stop', token: string, position?: number) {
+export async function command(action: 'move' | 'stop' | 'home', token: string, position?: number) {
   const response = await fetch(`/api/${action}`, {
     method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Control-Token': token },
-    body: action === 'move' ? JSON.stringify({ position_mm: position }) : undefined,
-    signal: AbortSignal.timeout(5000),
+    body: action === 'move' ? JSON.stringify({ position_mm: position }) : action === 'home' ? JSON.stringify({ confirm_clear: true }) : undefined,
+    signal: AbortSignal.timeout(30000),
   })
   if (!response.ok) {
     const error = await response.json()

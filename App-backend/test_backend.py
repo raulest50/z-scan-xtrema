@@ -53,7 +53,7 @@ def test_reconnect_expiry_and_release():
 
 
 def test_real_mode_fails_closed(monkeypatch):
-    monkeypatch.setenv('ZSCAN_STAGE_MODE', 'newport')
+    monkeypatch.setenv('ZSCAN_STAGE_MODE', 'unknown')
     with pytest.raises(RuntimeError):
         LinearStage()
 

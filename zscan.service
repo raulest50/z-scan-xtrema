@@ -1,0 +1,23 @@
+[Unit]
+Description=Z-Scan Xtrema web application (Newport XPS-RL)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/zscan-app/App-backend
+Environment=ZSCAN_STAGE_MODE=newport
+Environment=ZSCAN_ORIGINS=http://zscan.home.arpa:8000,http://192.168.0.101:8000,http://localhost:8000,http://127.0.0.1:8000
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/home/ubuntu/zscan-app/App-backend/.venv/bin/python -m uvicorn main:app --host 0.0.0.0 --port 8000 --workers 1 --ws websockets --ws-ping-interval 10 --ws-ping-timeout 20
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+
+[Install]
+WantedBy=multi-user.target

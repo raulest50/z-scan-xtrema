@@ -9,13 +9,14 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from Drivers.driver_lin_stage import LinearStage
+from Drivers.driver_lin_stage import LinearStage, XpsError
 from session import ControlSession
 
 
 @asynccontextmanager
 async def lifespan(app):
     app.state.stage = LinearStage()
+    await app.state.stage.start()
     app.state.session = ControlSession(app.state.stage)
     yield
     await app.state.session.close()
@@ -26,6 +27,29 @@ app = FastAPI(title="Z-Scan Xtrema", lifespan=lifespan)
 
 class Move(BaseModel):
     position_mm: float = Field(allow_inf_nan=False)
+
+
+class HomeRequest(BaseModel):
+    confirm_clear: bool
+
+
+@app.exception_handler(XpsError)
+async def xps_error(request, exc):
+    from fastapi.responses import JSONResponse
+    return JSONResponse(status_code=503, content={'detail': str(exc)})
+
+
+@app.post('/api/home')
+async def home(body: HomeRequest, x_control_token: str = Header(default='')):
+    if not body.confirm_clear:
+        raise HTTPException(422, 'Confirma que el recorrido está despejado antes del homing.')
+    try:
+        await app.state.session.home(x_control_token)
+    except PermissionError as exc:
+        raise HTTPException(403, str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(409, str(exc)) from exc
+    return app.state.stage.status()
 
 
 @app.get("/api/health")
@@ -97,7 +121,14 @@ async def control(ws: WebSocket):
             publisher.cancel()
             with suppress(asyncio.CancelledError, Exception):
                 await publisher
-        await app.state.session.disconnect(connection, release)
+        try:
+            await app.state.session.disconnect(connection, release)
+        except XpsError as exc:
+            if release:
+                await ws.send_json({'type': 'release_failed', 'detail': str(exc)})
+        else:
+            if release:
+                await ws.send_json({'type': 'released'})
         if release:
             await ws.close()
 
