@@ -1,0 +1,50 @@
+Z-SCAN XTREMA — primera implementación
+
+Estado: simulación funcional. No desplegado en Kria; no controla hardware.
+El diagrama puede incluir solo main.py, session.py, driver_lin_stage.py,
+main.tsx, Home.tsx, api.ts y useControlSession.ts.
+
+DESARROLLO (dos terminales desde la raíz del proyecto)
+1. cd App-backend
+   uv sync --python 3.10
+   uv run uvicorn main:app --host 127.0.0.1 --port 8000 --workers 1 --ws websockets --ws-ping-interval 10 --ws-ping-timeout 20
+2. cd frontend
+   npm ci
+   npm run dev
+Abrir http://localhost:5173. Otra pestaña muestra Equipo ocupado.
+
+FRONTEND COMPILADO
+En frontend: npm run build
+Después iniciar/reiniciar el backend y abrir http://127.0.0.1:8000.
+FastAPI sirve dist/index.html y /assets; Vite no se usa en producción.
+
+PRUEBAS
+En App-backend: uv run pytest -q
+En frontend: npm run build
+
+SESIÓN
+Una conexión WebSocket por operador; token aleatorio conservado por pestaña.
+No hay caducidad por inactividad del usuario. Uvicorn gestiona ping/pong.
+Al detectar desconexión se detiene la simulación y reserva 10 s para reconexión.
+Liberar equipo detiene el movimiento antes de liberar la reserva.
+Ejecutar UNA instancia con UN worker. No usar --reload durante control físico.
+El token es exclusión mutua, no autenticación de usuarios. La interfaz Newport
+externa no queda bloqueada por esta aplicación.
+
+KRIA / PYNQ (pendiente, no ejecutado)
+Identificar primero el intérprete que importa PYNQ y sus dependencias.
+Crear el entorno a partir de ese intérprete; considerar system-site-packages
+si PYNQ está instalado globalmente, verificando que no se oculten sus versiones.
+No copiar el .venv de Windows a Linux. uv.lock fija dependencias de la app,
+pero no captura bibliotecas ni controladores del sistema/PYNQ.
+No se modifica el servicio Jupyter ni el puerto 80.
+ZSCAN_ORIGINS permite una lista separada por comas de orígenes web autorizados.
+
+HARDWARE PENDIENTE
+driver_lin_stage.py contiene un simulador explícito con rango ilustrativo
+[-10, 10] mm. ZSCAN_STAGE_MODE diferente de simulation impide el arranque.
+Antes de implementar modo Newport: confirmar firmware/API, grupo y positioner,
+modelo/rango/unidades, parada y estado de referencia. No ejecutar homing,
+habilitación de movimiento ni reconexión que repita comandos automáticamente.
+Las llamadas reales bloqueantes deberán ejecutarse fuera del event loop y
+permitir una vía de parada independiente de una orden de movimiento en curso.

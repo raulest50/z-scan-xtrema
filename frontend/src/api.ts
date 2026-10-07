@@ -1,0 +1,13 @@
+/** Órdenes al backend; nunca se conecta al controlador físico. */
+export async function command(action: 'move' | 'stop', token: string, position?: number) {
+  const response = await fetch(`/api/${action}`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Control-Token': token },
+    body: action === 'move' ? JSON.stringify({ position_mm: position }) : undefined,
+    signal: AbortSignal.timeout(5000),
+  })
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(typeof error.detail === 'string' ? error.detail : 'Solicitud inválida.')
+  }
+  return response.json()
+}

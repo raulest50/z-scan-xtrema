@@ -1,0 +1,114 @@
+"""API, WebSocket de control y distribución del frontend compilado."""
+import asyncio
+import os
+from contextlib import asynccontextmanager, suppress
+from pathlib import Path
+
+from fastapi import FastAPI, Header, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field
+
+from Drivers.driver_lin_stage import LinearStage
+from session import ControlSession
+
+
+@asynccontextmanager
+async def lifespan(app):
+    app.state.stage = LinearStage()
+    app.state.session = ControlSession(app.state.stage)
+    yield
+    await app.state.session.close()
+
+
+app = FastAPI(title="Z-Scan Xtrema", lifespan=lifespan)
+
+
+class Move(BaseModel):
+    position_mm: float = Field(allow_inf_nan=False)
+
+
+@app.get("/api/health")
+async def health():
+    return {"status": "ok", "mode": app.state.stage.status()["mode"]}
+
+
+@app.post("/api/move")
+async def move(body: Move, x_control_token: str = Header(default="")):
+    try:
+        await app.state.session.move(x_control_token, body.position_mm)
+    except PermissionError as exc:
+        raise HTTPException(403, str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(409, str(exc)) from exc
+    return app.state.stage.status()
+
+
+@app.post("/api/stop")
+async def stop(x_control_token: str = Header(default="")):
+    try:
+        await app.state.session.stop(x_control_token)
+    except PermissionError as exc:
+        raise HTTPException(403, str(exc)) from exc
+    return app.state.stage.status()
+
+
+@app.websocket("/ws")
+async def control(ws: WebSocket):
+    origins = os.getenv("ZSCAN_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173,http://localhost:8000,http://127.0.0.1:8000,http://zscan.home.arpa,http://192.168.0.101").split(",")
+    if ws.headers.get("origin") not in origins:
+        await ws.close(code=1008)
+        return
+    await ws.accept()
+    try:
+        hello = await asyncio.wait_for(ws.receive_json(), timeout=5)
+        if not isinstance(hello, dict):
+            await ws.close(code=1008)
+            return
+    except (asyncio.TimeoutError, ValueError, WebSocketDisconnect):
+        await ws.close()
+        return
+    claim = await app.state.session.acquire(hello.get("token"))
+    if claim is None:
+        await ws.send_json({"type": "busy"})
+        await ws.close(code=1008)
+        return
+    token, connection = claim
+    release = False
+
+    async def publish():
+        while True:
+            await ws.send_json({"type": "state", **app.state.stage.status()})
+            await asyncio.sleep(0.25)
+
+    publisher = None
+    try:
+        await ws.send_json({"type": "granted", "token": token})
+        publisher = asyncio.create_task(publish())
+        while True:
+            message = await ws.receive_json()
+            if isinstance(message, dict) and message.get("type") == "release":
+                release = True
+                break
+    except (WebSocketDisconnect, ValueError):
+        pass
+    finally:
+        if publisher:
+            publisher.cancel()
+            with suppress(asyncio.CancelledError, Exception):
+                await publisher
+        await app.state.session.disconnect(connection, release)
+        if release:
+            await ws.close()
+
+
+dist = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+if (dist / "assets").is_dir():
+    app.mount("/assets", StaticFiles(directory=dist / "assets"), name="assets")
+
+
+@app.get("/")
+async def frontend():
+    if not (dist / "index.html").is_file():
+        raise HTTPException(503, "Frontend pendiente de compilar: npm run build")
+    return FileResponse(dist / "index.html")

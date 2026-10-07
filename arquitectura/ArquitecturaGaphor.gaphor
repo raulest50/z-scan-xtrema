@@ -309,48 +309,20 @@ package name {
 </name>
 <nestedPackage>
 <reflist>
-<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
-<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+<ref refid="c335fb28-c1e9-11f1-851e-bc09b9551b3f"/>
+<ref refid="f533f35a-c1e9-11f1-a0f9-bc09b9551b3f"/>
 </reflist>
 </nestedPackage>
-<ownedDiagram>
-<reflist>
-<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
-<ref refid="da24f31b-c1bf-11f1-8fae-bc09b9551b3f"/>
-</reflist>
-</ownedDiagram>
-<ownedType>
-<reflist>
-<ref refid="e89783a0-c1bf-11f1-b7f1-bc09b9551b3f"/>
-<ref refid="eab91aae-c1bf-11f1-b135-bc09b9551b3f"/>
-<ref refid="18f96a1a-c1c0-11f1-b579-bc09b9551b3f"/>
-<ref refid="23725400-c1c0-11f1-be8e-bc09b9551b3f"/>
-<ref refid="53a666e3-c1c1-11f1-8658-bc09b9551b3f"/>
-<ref refid="5aae26fd-c1c1-11f1-8c68-bc09b9551b3f"/>
-<ref refid="6166630d-c1c1-11f1-9a61-bc09b9551b3f"/>
-<ref refid="7f4d3374-c1cb-11f1-ba1c-bc09b9551b3f"/>
-<ref refid="1c3a3991-c1d1-11f1-a88c-bc09b9551b3f"/>
-</reflist>
-</ownedType>
 <packagedElement>
 <reflist>
-<ref refid="e89783a0-c1bf-11f1-b7f1-bc09b9551b3f"/>
-<ref refid="eab91aae-c1bf-11f1-b135-bc09b9551b3f"/>
-<ref refid="18f96a1a-c1c0-11f1-b579-bc09b9551b3f"/>
-<ref refid="53a666e3-c1c1-11f1-8658-bc09b9551b3f"/>
-<ref refid="5aae26fd-c1c1-11f1-8c68-bc09b9551b3f"/>
-<ref refid="6166630d-c1c1-11f1-9a61-bc09b9551b3f"/>
-<ref refid="7f4d3374-c1cb-11f1-ba1c-bc09b9551b3f"/>
-<ref refid="1c3a3991-c1d1-11f1-a88c-bc09b9551b3f"/>
-<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
-<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
-<ref refid="23725400-c1c0-11f1-be8e-bc09b9551b3f"/>
+<ref refid="c335fb28-c1e9-11f1-851e-bc09b9551b3f"/>
+<ref refid="f533f35a-c1e9-11f1-a0f9-bc09b9551b3f"/>
 </reflist>
 </packagedElement>
 </UML:Package>
 <UML:DeploymentDiagram id="da24f31b-c1bf-11f1-8fae-bc09b9551b3f">
 <element>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="c335fb28-c1e9-11f1-851e-bc09b9551b3f"/>
 </element>
 <name>
 <val>Deployment</val>
@@ -363,6 +335,7 @@ package name {
 <ref refid="5a6108fe-c1c6-11f1-93e9-bc09b9551b3f"/>
 <ref refid="7f4d8401-c1cb-11f1-870e-bc09b9551b3f"/>
 <ref refid="1c3a91d5-c1d1-11f1-ae5a-bc09b9551b3f"/>
+<ref refid="a555f3fd-c1e9-11f1-b73a-bc09b9551b3f"/>
 <ref refid="18f9b187-c1c0-11f1-9efa-bc09b9551b3f"/>
 <ref refid="2372a857-c1c0-11f1-8634-bc09b9551b3f"/>
 <ref refid="504e9d2a-c1c1-11f1-ad77-bc09b9551b3f"/>
@@ -493,18 +466,45 @@ package name {
 </name>
 <note>
 <val>Rol: red local de control para la Kria y el Newport XPS-RL.
-LAN documentada: 192.168.0.0/24
-Gateway verificado: 192.168.0.1
+LAN verificada: 192.168.0.0/24
+Gateway y DHCP verificados: 192.168.0.1
+Configuración DHCP observada: DNS 192.168.0.1 y dominio de búsqueda zscan.localnet.
 Conectividad disponible: Ethernet y Wi-Fi.
 El XPS-RL está conectado mediante su puerto HOST Ethernet.
 Reserva requerida: 192.168.0.254 no debe asignarse por DHCP a otro equipo.
-Actualizado: 2026-10-06.</val>
+Plan DNS local: reservar 192.168.0.101 para la Kria y anunciarla mediante DHCP Option 6 cuando se despliegue dnsmasq; zona recomendada zscan.home.arpa.
+Actualizado: 2026-10-06.
+
+
+Dispositivo: Router TP-Link TL-WR841HP
+IP LAN: 192.168.0.1
+MAC: 28:87:BA:F1:1A:F0
+Red local: 192.168.0.0/24
+Sufijo DHCP actual: zscan.localnet
+Servicios detectados: DHCP, DNS forwarder, HTTP, SSH y UPnP
+
+Funciones:
+- Proporciona conectividad Ethernet/Wi-Fi.
+- Asigna direcciones IP mediante DHCP.
+- Actúa como gateway y reenviador DNS.
+- No proporciona registros DNS locales personalizados con el firmware actual.
+
+Configuración prevista:
+- Reserva DHCP para Kria KV260:
+  MAC 00:0A:35:14:B6:23
+  IP 192.168.0.101
+- DNS primario anunciado por DHCP: 192.168.0.101
+- La Kria ejecutará dnsmasq.
+- Nombre local previsto: zscan.home.arpa → 192.168.0.101
+
+Pendiente:
+- Confirmar revisión de hardware y versión exacta del firmware.</val>
 </note>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </owningPackage>
 <package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </package>
 <presentation>
 <reflist>
@@ -517,7 +517,7 @@ Actualizado: 2026-10-06.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 143.99999999999994, -129.91947365747077)</val>
 </matrix>
 <top-left>
-<val>(1.1368683772161603e-13, -590.7102819605184)</val>
+<val>(0.0, -590.7102819605184)</val>
 </top-left>
 <width>
 <val>1562.0016254425623</val>
@@ -547,22 +547,22 @@ Actualizado: 2026-10-06.</val>
 </reflist>
 </nestedNode>
 <note>
-<val>Hardware: AMD/Xilinx Kria KV260.
-Sistema previsto: Linux con PYNQ.
-IP documentada en la topología previa: 192.168.0.101/24 
-Gateway documentado: 192.168.0.1 
-
+<val>Hardware verificado: AMD/Xilinx Kria KV260 revB (ZynqMP KV260 revB).
+Hostname: kria
+Arquitectura: aarch64; CPU: 4 × ARM Cortex-A53, hasta 1.333 GHz; RAM: 3.8 GiB.
+Ethernet: eth0, MAC 00:0a:35:14:b6:23, enlace 100 Mbps full-duplex.
+IPv4 verificada: 192.168.0.101/24; gateway: 192.168.0.1; asignación observada mediante DHCP.
+Requisito: conservar una reserva DHCP estable para 00:0a:35:14:b6:23 → 192.168.0.101.
+FPGA Manager: Xilinx ZynqMP FPGA Manager, estado operating.
 Rol: alojar la aplicación web y controlar la FPGA mediante PYNQ.
 Comunicación con XPS-RL: Ethernet TCP hacia 192.168.0.254:5001.
-
-[DATOS PENDIENTES] hostname, MAC, IP actual y versiones exactas de Linux y PYNQ.
-Actualizado: 2026-10-06.</val>
+Auditado por SSH en modo lectura: 2026-10-06.</val>
 </note>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </owningPackage>
 <package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </package>
 <presentation>
 <reflist>
@@ -601,10 +601,10 @@ No modificar stages.ini, parámetros servo ni configuración del stage sin respa
 Actualizado: 2026-10-06.</val>
 </note>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </owningPackage>
 <package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </package>
 <presentation>
 <reflist>
@@ -657,10 +657,10 @@ Documentación aplicable: XPS-RL User's Manual V1.0.x y XPS Unified Programmer's
 Verificado: 2026-10-06.</val>
 </note>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </owningPackage>
 <package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </package>
 <presentation>
 <reflist>
@@ -685,10 +685,10 @@ Verificado: 2026-10-06.</val>
 </reflist>
 </ownedEnd>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </owningPackage>
 <package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </package>
 <presentation>
 <reflist>
@@ -738,10 +738,10 @@ Verificado: 2026-10-06.</val>
 </reflist>
 </ownedEnd>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </owningPackage>
 <package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </package>
 <presentation>
 <reflist>
@@ -788,10 +788,10 @@ Verificado: 2026-10-06.</val>
 </reflist>
 </ownedEnd>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </owningPackage>
 <package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </package>
 <presentation>
 <reflist>
@@ -822,6 +822,16 @@ Verificado: 2026-10-06.</val>
 </type>
 </UML:Property>
 <UML:Node id="b076c2ef-c1c3-11f1-a2d4-bc09b9551b3f">
+<clientDependency>
+<reflist>
+<ref refid="a5575153-c1e9-11f1-bd26-bc09b9551b3f"/>
+</reflist>
+</clientDependency>
+<deployment>
+<reflist>
+<ref refid="a5575153-c1e9-11f1-bd26-bc09b9551b3f"/>
+</reflist>
+</deployment>
 <name>
 <val>Linux</val>
 </name>
@@ -835,11 +845,15 @@ Verificado: 2026-10-06.</val>
 </node>
 <note>
 <val>Entorno de ejecución dentro de la Kria KV260.
+SO verificado: Ubuntu 22.04.5 LTS (Jammy), aarch64.
+Kernel: 5.15.0-1070-xilinx-zynqmp.
+Raíz: ext4 en /dev/mmcblk1p2, 29 GiB totales y 12 GiB disponibles (58 % usado al auditar).
 Responsabilidad: red, procesos, archivos, servicio web y acceso al runtime PYNQ.
-Despliegue inicial recomendado: entorno virtual Python y servicio systemd.
-Docker se difiere para evitar complejidad prematura con FPGA, dispositivos y permisos.
-[DATOS PENDIENTES] distribución, versión del kernel, versión de Python y configuración de red instaladas.
-Actualizado: 2026-10-06.</val>
+systemd-resolved: activo; DNS actual 192.168.0.1; dominio de búsqueda actual zscan.localnet.
+Docker 29.6.1: instalado, habilitado y activo; no seleccionado para el MVP debido al acceso a FPGA/UIO y permisos.
+DNS planificado: dnsmasq aún no instalado; zona recomendada zscan.home.arpa y escucha LAN en TCP/UDP 53.
+Despliegue inicial recomendado para la aplicación: entorno virtual Python y servicio systemd.
+Auditado por SSH en modo lectura: 2026-10-06.</val>
 </note>
 <presentation>
 <reflist>
@@ -863,6 +877,7 @@ Actualizado: 2026-10-06.</val>
 <children>
 <reflist>
 <ref refid="5a6108fe-c1c6-11f1-93e9-bc09b9551b3f"/>
+<ref refid="a555f3fd-c1e9-11f1-b73a-bc09b9551b3f"/>
 </reflist>
 </children>
 <diagram>
@@ -895,16 +910,19 @@ Actualizado: 2026-10-06.</val>
 <ref refid="b076c2ef-c1c3-11f1-a2d4-bc09b9551b3f"/>
 </node>
 <note>
-<val>Runtime planificado para la aplicación Z-Scan-Xtrema.
-Backend: Python, FastAPI y Uvicorn con un solo worker para evitar competencia por el XPS-RL y la FPGA.
-Frontend: Vue 3, TypeScript y Vite; el build estático será servido por FastAPI/Uvicorn.
+<val>Runtime instalado: Python 3.10.12 y PYNQ 3.0.1.
+FPGA Manager verificado en estado operating; dispositivos UIO presentes.
+Servicio existente: Jupyter Notebook 6.4.12 sobre Tornado 6.4.2; TCP 80 redirige a TCP 9090.
+Implicación: los puertos 80 y 9090 ya están ocupados y no deben asignarse a la nueva aplicación sin reconfigurar Jupyter deliberadamente.
+Backend planificado: Python, FastAPI y Uvicorn con un solo worker para evitar competencia por el XPS-RL y la FPGA. FastAPI y Uvicorn aún no están instalados en el entorno PYNQ.
+Frontend: React, TypeScript, Chakra UI v3 y Vite; el build estático será servido por FastAPI/Uvicorn y ejecutado en el navegador.
 Interfaz web: REST para órdenes validadas y WebSocket para estado y telemetría.
 Adaptador Newport: socket TCP ASCII directo hacia 192.168.0.254:5001.
 Adaptador FPGA: PYNQ con artifacts .bit y .hwh.
 Seguridad: el navegador no debe enviar comandos XPS arbitrarios; el backend valida estado, límites y operaciones permitidas.
 Despliegue inicial: entorno virtual y systemd, sin Docker.
 Estado: arquitectura definida; implementación pendiente.
-Actualizado: 2026-10-06.</val>
+Auditado por SSH en modo lectura: 2026-10-06.</val>
 </note>
 <presentation>
 <reflist>
@@ -953,13 +971,14 @@ Actualizado: 2026-10-06.</val>
 <note>
 <val>Stack: FastAPI ejecutado por Uvicorn.
 Responsabilidades: servir el frontend compilado, exponer REST y WebSocket, coordinar el XPS-RL y encapsular PYNQ.
+Estado verificado: FastAPI y Uvicorn aún no están instalados en el entorno PYNQ; artifact planificado, no desplegado.
 </val>
 </note>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </owningPackage>
 <package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </package>
 <presentation>
 <reflist>
@@ -1033,10 +1052,10 @@ Tech Stack:
 </val>
 </note>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </owningPackage>
 <package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
 </package>
 <presentation>
 <reflist>
@@ -1094,7 +1113,7 @@ Tech Stack:
 </UML:Deployment>
 <UML:PackageDiagram id="86f1293d-c1df-11f1-be5b-bc09b9551b3f">
 <element>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="f533f35a-c1e9-11f1-a0f9-bc09b9551b3f"/>
 </element>
 <name>
 <val>Front y Backend</val>
@@ -1102,7 +1121,15 @@ Tech Stack:
 <ownedPresentation>
 <reflist>
 <ref refid="f767011b-c1df-11f1-acc7-bc09b9551b3f"/>
+<ref refid="7b53069e-c1ea-11f1-8b29-bc09b9551b3f"/>
+<ref refid="8a2983f5-c1ea-11f1-8449-bc09b9551b3f"/>
+<ref refid="f4e599b4-c1ec-11f1-a28c-bc09b9551b3f"/>
+<ref refid="72ee9eff-c1ed-11f1-b941-bc09b9551b3f"/>
 <ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
+<ref refid="6f758e96-c1ea-11f1-bcff-bc09b9551b3f"/>
+<ref refid="407e5f5b-c1ee-11f1-a5f1-bc09b9551b3f"/>
+<ref refid="47070e2a-c1ee-11f1-9011-bc09b9551b3f"/>
+<ref refid="547c520a-c1ee-11f1-9fef-bc09b9551b3f"/>
 </reflist>
 </ownedPresentation>
 </UML:PackageDiagram>
@@ -1110,12 +1137,30 @@ Tech Stack:
 <name>
 <val>Backend</val>
 </name>
+<nestedPackage>
+<reflist>
+<ref refid="7b52d01c-c1ea-11f1-b6ed-bc09b9551b3f"/>
+</reflist>
+</nestedPackage>
 <nestingPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="ff3f7a33-c1e9-11f1-bda2-bc09b9551b3f"/>
 </nestingPackage>
+<ownedType>
+<reflist>
+<ref refid="f4e553ee-c1ec-11f1-8dc2-bc09b9551b3f"/>
+<ref refid="72ee6489-c1ed-11f1-a897-bc09b9551b3f"/>
+</reflist>
+</ownedType>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="ff3f7a33-c1e9-11f1-bda2-bc09b9551b3f"/>
 </owningPackage>
+<packagedElement>
+<reflist>
+<ref refid="7b52d01c-c1ea-11f1-b6ed-bc09b9551b3f"/>
+<ref refid="f4e553ee-c1ec-11f1-8dc2-bc09b9551b3f"/>
+<ref refid="72ee6489-c1ed-11f1-a897-bc09b9551b3f"/>
+</reflist>
+</packagedElement>
 <presentation>
 <reflist>
 <ref refid="f767011b-c1df-11f1-acc7-bc09b9551b3f"/>
@@ -1135,6 +1180,13 @@ Tech Stack:
 <height>
 <val>756.2491842771378</val>
 </height>
+<children>
+<reflist>
+<ref refid="7b53069e-c1ea-11f1-8b29-bc09b9551b3f"/>
+<ref refid="f4e599b4-c1ec-11f1-a28c-bc09b9551b3f"/>
+<ref refid="72ee9eff-c1ed-11f1-b941-bc09b9551b3f"/>
+</reflist>
+</children>
 <diagram>
 <ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
 </diagram>
@@ -1147,11 +1199,27 @@ Tech Stack:
 <val>FrontEnd</val>
 </name>
 <nestingPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="ff3f7a33-c1e9-11f1-bda2-bc09b9551b3f"/>
 </nestingPackage>
+<ownedType>
+<reflist>
+<ref refid="6f753892-c1ea-11f1-8e25-bc09b9551b3f"/>
+<ref refid="407e2151-c1ee-11f1-a7ab-bc09b9551b3f"/>
+<ref refid="4706c3c9-c1ee-11f1-a2e3-bc09b9551b3f"/>
+<ref refid="547c20a6-c1ee-11f1-acc8-bc09b9551b3f"/>
+</reflist>
+</ownedType>
 <owningPackage>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+<ref refid="ff3f7a33-c1e9-11f1-bda2-bc09b9551b3f"/>
 </owningPackage>
+<packagedElement>
+<reflist>
+<ref refid="6f753892-c1ea-11f1-8e25-bc09b9551b3f"/>
+<ref refid="407e2151-c1ee-11f1-a7ab-bc09b9551b3f"/>
+<ref refid="4706c3c9-c1ee-11f1-a2e3-bc09b9551b3f"/>
+<ref refid="547c20a6-c1ee-11f1-acc8-bc09b9551b3f"/>
+</reflist>
+</packagedElement>
 <presentation>
 <reflist>
 <ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
@@ -1171,6 +1239,14 @@ Tech Stack:
 <height>
 <val>950.8702745166163</val>
 </height>
+<children>
+<reflist>
+<ref refid="6f758e96-c1ea-11f1-bcff-bc09b9551b3f"/>
+<ref refid="407e5f5b-c1ee-11f1-a5f1-bc09b9551b3f"/>
+<ref refid="47070e2a-c1ee-11f1-9011-bc09b9551b3f"/>
+<ref refid="547c520a-c1ee-11f1-9fef-bc09b9551b3f"/>
+</reflist>
+</children>
 <diagram>
 <ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
 </diagram>
@@ -1178,5 +1254,523 @@ Tech Stack:
 <ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
 </subject>
 </UML:PackageItem>
+<UML:Artifact id="a555ad39-c1e9-11f1-a681-bc09b9551b3f">
+<deployment>
+<reflist>
+<ref refid="a5575153-c1e9-11f1-bd26-bc09b9551b3f"/>
+</reflist>
+</deployment>
+<name>
+<val>dnsmasq</val>
+</name>
+<note>
+<val>para acceder a al front de manera local con:
+
+zscan.home.arpa</val>
+</note>
+<owningPackage>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="a555f3fd-c1e9-11f1-b73a-bc09b9551b3f"/>
+</reflist>
+</presentation>
+<supplierDependency>
+<reflist>
+<ref refid="a5575153-c1e9-11f1-bd26-bc09b9551b3f"/>
+</reflist>
+</supplierDependency>
+</UML:Artifact>
+<UML:ArtifactItem id="a555f3fd-c1e9-11f1-b73a-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 180.12575996206564, -443.1778813572337)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>155.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="da24f31b-c1bf-11f1-8fae-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="b07710a5-c1c3-11f1-a630-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="a555ad39-c1e9-11f1-a681-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:Deployment id="a5575153-c1e9-11f1-bd26-bc09b9551b3f">
+<client>
+<reflist>
+<ref refid="b076c2ef-c1c3-11f1-a2d4-bc09b9551b3f"/>
+</reflist>
+</client>
+<deployedArtifact>
+<reflist>
+<ref refid="a555ad39-c1e9-11f1-a681-bc09b9551b3f"/>
+</reflist>
+</deployedArtifact>
+<location>
+<ref refid="b076c2ef-c1c3-11f1-a2d4-bc09b9551b3f"/>
+</location>
+<supplier>
+<reflist>
+<ref refid="a555ad39-c1e9-11f1-a681-bc09b9551b3f"/>
+</reflist>
+</supplier>
+</UML:Deployment>
+<UML:Package id="c335fb28-c1e9-11f1-851e-bc09b9551b3f">
+<name>
+<val>Hardware - Deployment</val>
+</name>
+<nestedPackage>
+<reflist>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
+</reflist>
+</nestedPackage>
+<nestingPackage>
+<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+</nestingPackage>
+<ownedDiagram>
+<reflist>
+<ref refid="da24f31b-c1bf-11f1-8fae-bc09b9551b3f"/>
+</reflist>
+</ownedDiagram>
+<owningPackage>
+<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+</owningPackage>
+<packagedElement>
+<reflist>
+<ref refid="caab8d86-c1e9-11f1-8218-bc09b9551b3f"/>
+</reflist>
+</packagedElement>
+</UML:Package>
+<UML:Package id="caab8d86-c1e9-11f1-8218-bc09b9551b3f">
+<name>
+<val>Elements</val>
+</name>
+<nestingPackage>
+<ref refid="c335fb28-c1e9-11f1-851e-bc09b9551b3f"/>
+</nestingPackage>
+<ownedType>
+<reflist>
+<ref refid="e89783a0-c1bf-11f1-b7f1-bc09b9551b3f"/>
+<ref refid="eab91aae-c1bf-11f1-b135-bc09b9551b3f"/>
+<ref refid="18f96a1a-c1c0-11f1-b579-bc09b9551b3f"/>
+<ref refid="23725400-c1c0-11f1-be8e-bc09b9551b3f"/>
+<ref refid="53a666e3-c1c1-11f1-8658-bc09b9551b3f"/>
+<ref refid="6166630d-c1c1-11f1-9a61-bc09b9551b3f"/>
+<ref refid="5aae26fd-c1c1-11f1-8c68-bc09b9551b3f"/>
+<ref refid="7f4d3374-c1cb-11f1-ba1c-bc09b9551b3f"/>
+<ref refid="1c3a3991-c1d1-11f1-a88c-bc09b9551b3f"/>
+<ref refid="a555ad39-c1e9-11f1-a681-bc09b9551b3f"/>
+</reflist>
+</ownedType>
+<owningPackage>
+<ref refid="c335fb28-c1e9-11f1-851e-bc09b9551b3f"/>
+</owningPackage>
+<packagedElement>
+<reflist>
+<ref refid="e89783a0-c1bf-11f1-b7f1-bc09b9551b3f"/>
+<ref refid="eab91aae-c1bf-11f1-b135-bc09b9551b3f"/>
+<ref refid="18f96a1a-c1c0-11f1-b579-bc09b9551b3f"/>
+<ref refid="23725400-c1c0-11f1-be8e-bc09b9551b3f"/>
+<ref refid="53a666e3-c1c1-11f1-8658-bc09b9551b3f"/>
+<ref refid="6166630d-c1c1-11f1-9a61-bc09b9551b3f"/>
+<ref refid="5aae26fd-c1c1-11f1-8c68-bc09b9551b3f"/>
+<ref refid="7f4d3374-c1cb-11f1-ba1c-bc09b9551b3f"/>
+<ref refid="1c3a3991-c1d1-11f1-a88c-bc09b9551b3f"/>
+<ref refid="a555ad39-c1e9-11f1-a681-bc09b9551b3f"/>
+</reflist>
+</packagedElement>
+</UML:Package>
+<UML:Package id="f533f35a-c1e9-11f1-a0f9-bc09b9551b3f">
+<name>
+<val>Application - Software</val>
+</name>
+<nestedPackage>
+<reflist>
+<ref refid="ff3f7a33-c1e9-11f1-bda2-bc09b9551b3f"/>
+</reflist>
+</nestedPackage>
+<nestingPackage>
+<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+</nestingPackage>
+<ownedDiagram>
+<reflist>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</reflist>
+</ownedDiagram>
+<owningPackage>
+<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+</owningPackage>
+<packagedElement>
+<reflist>
+<ref refid="ff3f7a33-c1e9-11f1-bda2-bc09b9551b3f"/>
+</reflist>
+</packagedElement>
+</UML:Package>
+<UML:Package id="ff3f7a33-c1e9-11f1-bda2-bc09b9551b3f">
+<name>
+<val>Elements</val>
+</name>
+<nestedPackage>
+<reflist>
+<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</reflist>
+</nestedPackage>
+<nestingPackage>
+<ref refid="f533f35a-c1e9-11f1-a0f9-bc09b9551b3f"/>
+</nestingPackage>
+<owningPackage>
+<ref refid="f533f35a-c1e9-11f1-a0f9-bc09b9551b3f"/>
+</owningPackage>
+<packagedElement>
+<reflist>
+<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</reflist>
+</packagedElement>
+</UML:Package>
+<UML:Artifact id="6f753892-c1ea-11f1-8e25-bc09b9551b3f">
+<name>
+<val>home.tsx</val>
+</name>
+<note>
+<val>por ahora que contenga toda la interfaz grafica. que sea de pagina unica.</val>
+</note>
+<owningPackage>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="6f758e96-c1ea-11f1-bcff-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="6f758e96-c1ea-11f1-bcff-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 205.67593888536842, 241.77883999859694)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>158.3078594418049</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="6f753892-c1ea-11f1-8e25-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:Package id="7b52d01c-c1ea-11f1-b6ed-bc09b9551b3f">
+<name>
+<val>Drivers</val>
+</name>
+<nestingPackage>
+<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
+</nestingPackage>
+<ownedType>
+<reflist>
+<ref refid="8a293c06-c1ea-11f1-b4be-bc09b9551b3f"/>
+</reflist>
+</ownedType>
+<owningPackage>
+<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
+</owningPackage>
+<packagedElement>
+<reflist>
+<ref refid="8a293c06-c1ea-11f1-b4be-bc09b9551b3f"/>
+</reflist>
+</packagedElement>
+<presentation>
+<reflist>
+<ref refid="7b53069e-c1ea-11f1-8b29-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Package>
+<UML:PackageItem id="7b53069e-c1ea-11f1-8b29-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 611.3374837101212, 108.959538487472)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>658.776382324737</val>
+</width>
+<height>
+<val>449.63203946791964</val>
+</height>
+<children>
+<reflist>
+<ref refid="8a2983f5-c1ea-11f1-8449-bc09b9551b3f"/>
+</reflist>
+</children>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="f767011b-c1df-11f1-acc7-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="7b52d01c-c1ea-11f1-b6ed-bc09b9551b3f"/>
+</subject>
+</UML:PackageItem>
+<UML:Artifact id="8a293c06-c1ea-11f1-b4be-bc09b9551b3f">
+<name>
+<val>driver_lin_stage.py</val>
+</name>
+<owningPackage>
+<ref refid="7b52d01c-c1ea-11f1-b6ed-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="7b52d01c-c1ea-11f1-b6ed-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="8a2983f5-c1ea-11f1-8449-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="8a2983f5-c1ea-11f1-8449-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 74.37475225317283, 109.14143036800633)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>180.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="7b53069e-c1ea-11f1-8b29-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="8a293c06-c1ea-11f1-b4be-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:Artifact id="f4e553ee-c1ec-11f1-8dc2-bc09b9551b3f">
+<name>
+<val>main.py</val>
+</name>
+<owningPackage>
+<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="f4e599b4-c1ec-11f1-a28c-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="f4e599b4-c1ec-11f1-a28c-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 97.0755919080807, 108.95953848747205)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>155.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="f767011b-c1df-11f1-acc7-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="f4e553ee-c1ec-11f1-8dc2-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:Artifact id="72ee6489-c1ed-11f1-a897-bc09b9551b3f">
+<name>
+<val>session.py</val>
+</name>
+<owningPackage>
+<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="f766b6cc-c1df-11f1-812e-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="72ee9eff-c1ed-11f1-b941-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="72ee9eff-c1ed-11f1-b941-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 97.07559190808063, 254.10096885547833)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>155.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="f767011b-c1df-11f1-acc7-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="72ee6489-c1ed-11f1-a897-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:Artifact id="407e2151-c1ee-11f1-a7ab-bc09b9551b3f">
+<name>
+<val>main.tsx</val>
+</name>
+<owningPackage>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="407e5f5b-c1ee-11f1-a5f1-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="407e5f5b-c1ee-11f1-a5f1-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 492.82809294736563, 241.7788399985971)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>155.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="407e2151-c1ee-11f1-a7ab-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:Artifact id="4706c3c9-c1ee-11f1-a2e3-bc09b9551b3f">
+<name>
+<val>api.ts</val>
+</name>
+<owningPackage>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="47070e2a-c1ee-11f1-9011-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="47070e2a-c1ee-11f1-9011-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 788.212235963294, 241.77883999859708)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>155.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="4706c3c9-c1ee-11f1-a2e3-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
+<UML:Artifact id="547c20a6-c1ee-11f1-acc8-bc09b9551b3f">
+<name>
+<val>useControlSession.ts</val>
+</name>
+<owningPackage>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</owningPackage>
+<package>
+<ref refid="20216ff6-c1e0-11f1-b2b0-bc09b9551b3f"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="547c520a-c1ee-11f1-9fef-bc09b9551b3f"/>
+</reflist>
+</presentation>
+</UML:Artifact>
+<UML:ArtifactItem id="547c520a-c1ee-11f1-9fef-bc09b9551b3f">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 1085.9561388713548, 241.77883999859696)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>198.0</val>
+</width>
+<height>
+<val>72.0</val>
+</height>
+<diagram>
+<ref refid="86f1293d-c1df-11f1-be5b-bc09b9551b3f"/>
+</diagram>
+<parent>
+<ref refid="2021a056-c1e0-11f1-a0ff-bc09b9551b3f"/>
+</parent>
+<subject>
+<ref refid="547c20a6-c1ee-11f1-acc8-bc09b9551b3f"/>
+</subject>
+</UML:ArtifactItem>
 </model>
 </gaphor>
