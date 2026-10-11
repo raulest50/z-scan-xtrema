@@ -1,0 +1,5 @@
+# U-Boot en QSPI carga extlinux, Image y el DTB de KV260 desde la primera FAT.
+# Ninguna partición de la SD queda montada para escritura en Linux.
+part /boot --source bootimg-partition --ondisk mmcblk --fstype=vfat --label BOOT --active --align 4096 --fixed-size 128 --no-fstab-update
+part / --source rootfs --ondisk mmcblk --fstype=squashfs --align 4096 --uuid ${ZSCAN_ROOT_PARTUUID} --mkfs-extraopts="-noappend -processors 1" --no-fstab-update
+bootloader --ptable gpt

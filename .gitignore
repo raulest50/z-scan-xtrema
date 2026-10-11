@@ -6,3 +6,29 @@ __pycache__/
 node_modules/
 dist/
 .env
+
+# EDF / Yocto: mantener el workspace fuera del repo cuando sea posible.
+# Si se crea dentro de custom-OS, alojar los checkouts externos en yocto-workspace/.
+/custom-OS/**/yocto-workspace/
+/custom-OS/**/.repo/
+/custom-OS/**/build/
+/custom-OS/**/build-*/
+/custom-OS/**/downloads/
+/custom-OS/**/sstate-cache/
+/custom-OS/**/tmp/
+/custom-OS/**/artifacts/
+
+# Configuración local del build: rutas del host y hash de contraseña.
+# Los archivos .sample y las configuraciones de capas/máquinas siguen en Git.
+/custom-OS/**/conf/local.conf
+/custom-OS/**/conf/auto.conf
+/custom-OS/**/conf/site.conf
+
+# Imágenes generadas y mapas de grabación exportados fuera del build.
+/custom-OS/**/*.wic
+/custom-OS/**/*.wic.*
+/custom-OS/**/*.bmap
+/custom-OS/**/*.squashfs
+/custom-OS/**/*.squashfs.*
+/custom-OS/**/*.img
+/custom-OS/**/*.img.*
